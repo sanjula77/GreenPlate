@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+    implementation(libs.coil.compose)
     implementation(libs.ui)
     implementation(libs.material3)
     implementation(libs.androidx.core.ktx)

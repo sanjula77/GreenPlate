@@ -20,53 +20,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.layout.Row
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopAppBarFn() {
-    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
-        state = rememberTopAppBarState()
-    )
-
-    Scaffold(
-        modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = {
-            TopBar(scrollBehavior = scrollBehavior)
-        }
-    ) { paddingValues ->
-        Screen(modifier = Modifier.padding(paddingValues))
-    }
-}
-
-@Composable
-fun Screen(modifier: Modifier = Modifier) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize()
-    ) {
-
-        item {
-            PostInputSection()
-        }
-
-        items(15) { index ->
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .padding(8.dp)
-                    .background(Color.Gray, shape = RoundedCornerShape(8.dp)),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "Item #$index", color = Color.White, fontSize = 20.sp)
-            }
-        }
-    }
-}
+import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -94,27 +51,31 @@ fun TopBar(scrollBehavior: TopAppBarScrollBehavior) {
                 Icon(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = "Search",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier.size(30.dp)
                 )
             }
             IconButton(onClick = { /* TODO: Menu */ }) {
                 Icon(
                     imageVector = Icons.Rounded.Menu,
                     contentDescription = "Menu",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier.size(30.dp)
                 )
             }
         }
     )
 }
 
+@Preview
 @Composable
 fun PostInputSection() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.95f))
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp)
+            .padding(bottom = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
@@ -125,7 +86,7 @@ fun PostInputSection() {
                 .clip(CircleShape)
                 .clickable {  }
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -139,7 +100,9 @@ fun PostInputSection() {
                 text = "What's on your mind?",
                 color = Color.Black.copy(alpha = 0.9f),
                 fontSize = 16.sp,
-                modifier = Modifier.padding(start = 16.dp, end = 8.dp).clickable {  }
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .clickable {  }
             )
         }
         Spacer(modifier = Modifier.width(8.dp))

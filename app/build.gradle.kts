@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+    implementation(libs.android.lottie.compose)
     implementation(libs.coil.compose)
     implementation(libs.ui)
     implementation(libs.material3)
@@ -54,6 +55,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.benchmark.macro)
     implementation(libs.play.services.nearby)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.foundation.layout.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,4 +1,4 @@
-package com.example.greenplate
+package com.example.greenplate.topAppBar
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.greenplate.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

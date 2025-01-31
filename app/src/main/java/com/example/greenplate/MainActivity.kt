@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.greenplate.homeScreen.Home
 import com.example.greenplate.ui.theme.GreenPlateTheme
 
 class MainActivity : ComponentActivity() {

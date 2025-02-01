@@ -21,9 +21,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                    // Home()
-                   // WelcomeScreen()
+                    WelcomeScreen()
                    // Login()
-                    RegisterScreen()
+                   /// RegisterScreen()
                 }
             }
         }

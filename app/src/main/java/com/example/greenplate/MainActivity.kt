@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.greenplate.authentication.Login
+import com.example.greenplate.authentication.RegisterScreen
 import com.example.greenplate.ui.theme.GreenPlateTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                    // Home()
                    // WelcomeScreen()
-                    Login()
+                   // Login()
+                    RegisterScreen()
                 }
             }
         }

@@ -41,6 +41,12 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.foundation)
+    implementation(libs.androidx.material)
+    implementation(libs.material3)
+    implementation(libs.ui.tooling.preview)
+    debugImplementation(libs.ui.tooling)
     implementation(libs.android.lottie.compose)
     implementation(libs.coil.compose)
     implementation(libs.ui)
@@ -57,6 +63,7 @@ dependencies {
     implementation(libs.play.services.nearby)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.espresso.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

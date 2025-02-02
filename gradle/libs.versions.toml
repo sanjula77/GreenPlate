@@ -20,8 +20,12 @@ playServicesNearby = "19.3.0"
 foundationLayoutAndroid = "1.7.0"
 uiTooling = "1.7.7"
 uiToolingPreview = "1.7.7"
+composeNavigation = "2.8.6"
+serialization = "1.6.3"
 
 [libraries]
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "composeNavigation" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 android-lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieComposeVersion" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
@@ -53,4 +57,5 @@ ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", versio
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 

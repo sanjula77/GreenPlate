@@ -19,13 +19,13 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.greenplate.navigation.Login
 
-@Preview
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,7 +41,7 @@ fun WelcomeScreen() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(400.dp) // Adjust height
+                .height(400.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.output),
@@ -96,7 +96,9 @@ fun WelcomeScreen() {
                 Spacer(modifier = Modifier.weight(1f))
 
                 Button(
-                    onClick = { /* Define your action here */ },
+                    onClick = {
+                        navController.navigate(Login)
+                    },
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier
                         .fillMaxWidth()

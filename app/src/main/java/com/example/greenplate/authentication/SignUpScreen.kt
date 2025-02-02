@@ -1,6 +1,7 @@
 package com.example.greenplate.authentication
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,14 +38,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.greenplate.R
+import com.example.greenplate.navigation.Login
 
-@Preview
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(navController: NavController) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -161,7 +162,6 @@ fun RegisterScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Terms and Updates Checkboxes
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
@@ -211,8 +211,11 @@ fun RegisterScreen() {
         }
 
         Spacer(modifier = Modifier.height(32.dp))
+
         Divider(thickness = 1.dp)
+
         Spacer(modifier = Modifier.height(32.dp))
+
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
@@ -220,7 +223,14 @@ fun RegisterScreen() {
         ) {
             Text(text = "Already have an account?", fontSize = 14.sp)
             Spacer(modifier = Modifier.width(4.dp))
-            Text(text = "Log in", fontSize = 14.sp, color = Color.Green)
+            Text(
+                text = "Log in",
+                fontSize = 14.sp,
+                color = Color.Green,
+                modifier = Modifier.clickable {
+                    navController.navigate(Login)
+                }
+            )
         }
     }
 }

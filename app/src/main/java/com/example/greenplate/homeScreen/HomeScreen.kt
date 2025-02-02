@@ -18,7 +18,7 @@ import com.example.greenplate.homeScreen.data.getSampleProducts
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Home() {
+fun HomeScreen() {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
         state = rememberTopAppBarState()
     )

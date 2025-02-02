@@ -2,6 +2,7 @@ package com.example.greenplate.authentication
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,14 +23,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.greenplate.R
+import com.example.greenplate.navigation.Home
+import com.example.greenplate.navigation.Register
 
-@Preview
 @Composable
-fun Login() {
+fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
@@ -47,14 +49,7 @@ fun Login() {
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 60.dp)
         )
-/*
-        Text(
-            text = "Enter your credentials to access your account",
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-*/
+
         Spacer(modifier = Modifier.height(80.dp))
 
         OutlinedTextField(
@@ -95,7 +90,9 @@ fun Login() {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = { },
+            onClick = {
+                navController.navigate(Home)
+            },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -121,7 +118,6 @@ fun Login() {
         }
 
         Spacer(modifier = Modifier.height(24.dp))
-
 
         SocialButton(
             text = "Continue with Google",
@@ -158,7 +154,10 @@ fun Login() {
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "Sign Up",
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.clickable {
+                    navController.navigate(Register)
+                }
             )
         }
     }
@@ -180,7 +179,7 @@ fun SocialButton(text: String, iconRes: Painter, backgroundColor: Color) {
             horizontalArrangement = Arrangement.Start,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp) // Reduced padding to make it responsive
+                .padding(start = 16.dp)
         ) {
             Icon(
                 painter = iconRes,

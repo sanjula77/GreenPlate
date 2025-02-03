@@ -1,8 +1,5 @@
-package com.example.greenplate.homeScreen
+package com.example.greenplate.donationScreen
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -11,33 +8,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavController
-import com.example.greenplate.topAppBar.PostInputSection
-import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
-import com.example.greenplate.homeScreen.cardSection.ProductCard
-import com.example.greenplate.homeScreen.data.getSampleProducts
+import com.example.greenplate.topAppBar.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
+fun Donate(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
         state = rememberTopAppBarState()
     )
-    val sampleProducts = getSampleProducts()
+
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { TopBar(scrollBehavior = scrollBehavior) },
         bottomBar = { BottomNavigationBar(navController) },
 
-    ) { paddingValues ->
-        LazyColumn(modifier = Modifier.padding(paddingValues)) {
-            item { PostInputSection() }
-            items(sampleProducts) { product ->
-                ProductCard(product)
-            }
-        }
+        ) { paddingValues ->
+
     }
 }
-
-
-

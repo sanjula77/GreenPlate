@@ -7,36 +7,29 @@ import androidx.navigation.compose.rememberNavController
 import com.example.greenplate.WelcomeScreen
 import com.example.greenplate.authentication.LoginScreen
 import com.example.greenplate.authentication.RegisterScreen
+import com.example.greenplate.donationScreen.Donate
 import com.example.greenplate.homeScreen.HomeScreen
-import kotlinx.serialization.Serializable
 
 @Composable
 fun MyNav() {
+
     val navController = rememberNavController()
-    NavHost(navController, startDestination = Welcome) {
-        composable<Welcome>{
+    NavHost(navController, startDestination ="welcome") {
+
+        composable("welcome") {
             WelcomeScreen(navController)
         }
-        composable<Login>{
+        composable("login") {
             LoginScreen(navController)
         }
-        composable<Register>{
+        composable("register") {
             RegisterScreen(navController)
         }
-        composable<Home>{
-            HomeScreen()
+        composable("home") {
+            HomeScreen(navController)
+        }
+        composable("donate") {
+            Donate(navController)
         }
     }
 }
-
-@Serializable
-object Welcome
-
-@Serializable
-object Login
-
-@Serializable
-object Register
-
-@Serializable
-object Home

@@ -42,8 +42,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.greenplate.R
-import com.example.greenplate.navigation.Login
-
 @Composable
 fun RegisterScreen(navController: NavController) {
     var firstName by remember { mutableStateOf("") }
@@ -228,7 +226,7 @@ fun RegisterScreen(navController: NavController) {
                 fontSize = 14.sp,
                 color = Color.Green,
                 modifier = Modifier.clickable {
-                    navController.navigate(Login)
+                    navController.navigate("login")
                 }
             )
         }

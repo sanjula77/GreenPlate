@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.greenplate.navigation.Login
+
 
 @Composable
 fun WelcomeScreen(navController: NavController) {
@@ -97,7 +97,7 @@ fun WelcomeScreen(navController: NavController) {
 
                 Button(
                     onClick = {
-                        navController.navigate(Login)
+                        navController.navigate("login")
                     },
                     shape = RoundedCornerShape(12.dp),
                     modifier = Modifier

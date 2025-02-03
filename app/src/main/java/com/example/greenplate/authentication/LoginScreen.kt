@@ -27,8 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.greenplate.R
-import com.example.greenplate.navigation.Home
-import com.example.greenplate.navigation.Register
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -91,7 +89,7 @@ fun LoginScreen(navController: NavController) {
 
         Button(
             onClick = {
-                navController.navigate(Home)
+                navController.navigate("home")
             },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
@@ -156,7 +154,7 @@ fun LoginScreen(navController: NavController) {
                 text = "Sign Up",
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
-                    navController.navigate(Register)
+                    navController.navigate("register")
                 }
             )
         }

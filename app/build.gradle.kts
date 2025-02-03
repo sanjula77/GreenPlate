@@ -42,6 +42,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.material3.v120)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.material.icons.extended)

@@ -9,6 +9,7 @@ import com.example.greenplate.authentication.LoginScreen
 import com.example.greenplate.authentication.RegisterScreen
 import com.example.greenplate.donationScreen.Donate
 import com.example.greenplate.homeScreen.HomeScreen
+import kotlinx.serialization.Serializable
 
 @Composable
 fun MyNav() {

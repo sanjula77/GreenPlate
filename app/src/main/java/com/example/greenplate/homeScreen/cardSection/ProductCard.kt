@@ -2,6 +2,7 @@ package com.example.greenplate.homeScreen.cardSection
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,17 +30,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-
 @Composable
 fun ProductCard(product: Product) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(411.dp)
             .padding(8.dp),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Column {
+        Column(modifier = Modifier.fillMaxWidth()) { // Ensure full width
             Image(
                 painter = painterResource(id = product.imageRes),
                 contentDescription = null,
@@ -63,7 +63,7 @@ fun ProductCard(product: Product) {
                     text = product.description,
                     fontSize = 14.sp,
                     color = Color.Gray,
-                    maxLines = 3,
+                    maxLines = 2,
                     overflow = TextOverflow.Ellipsis
                 )
 
@@ -77,25 +77,27 @@ fun ProductCard(product: Product) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painter = painterResource(id = product.sellerImageRes),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clip(CircleShape),
-                        contentScale = ContentScale.Crop
-                    )
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Text(
-                        text = product.sellerName,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-
-                    Spacer(modifier = Modifier.weight(1f))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(id = product.sellerImageRes),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(40.dp)
+                                .clip(CircleShape),
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = product.sellerName,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
 
                     Button(
                         onClick = { /* TODO: Handle contact click */ },
@@ -103,7 +105,7 @@ fun ProductCard(product: Product) {
                         modifier = Modifier
                             .border(1.dp, Color.Black, RoundedCornerShape(20.dp))
                             .height(40.dp)
-                            .width(120.dp)
+                            .padding(horizontal = 8.dp)
                     ) {
                         Text(
                             text = "Contact",
@@ -111,23 +113,7 @@ fun ProductCard(product: Product) {
                             color = Color.Black,
                         )
                     }
-
-
                 }
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = product.rating.toString(),
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Light,
-                        modifier = Modifier.padding(top = 2.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    RatingBar(rating = product.rating)
-                }
-
             }
         }
     }

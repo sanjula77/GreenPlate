@@ -42,6 +42,8 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.material3.v140alpha07)
+    implementation(libs.androidx.material.v150)
     implementation(libs.androidx.material3.v120)
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)

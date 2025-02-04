@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
@@ -32,7 +33,7 @@ import com.example.greenplate.R
 
 @Composable
 fun DonationCard(donation: Donation) {
-    androidx.compose.material3.Card(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
@@ -109,7 +110,7 @@ fun DonationCard(donation: Donation) {
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9370DB)),
                         modifier = Modifier
                             .height(45.dp)
-                            .fillMaxWidth(0.4f) // Responsive button width
+                            .width(130.dp)
                     ) {
                         Text(text = "Donate", color = Color.White)
                     }

@@ -31,6 +31,7 @@ import com.example.greenplate.topAppBar.PostInputSection
 import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.donationScreen.DonationCard
+import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
 import com.example.greenplate.homeScreen.cardSection.FoodCard
 import com.example.greenplate.homeScreen.cardSection.ProductCard
@@ -55,7 +56,7 @@ fun HomeScreen(navController: NavController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            item { PostInputSection() } // ✅ Correct Usage
+            item { PostInputSection() }
 
             item {
                 Row(
@@ -78,7 +79,7 @@ fun HomeScreen(navController: NavController) {
                 }
             }
 
-            item { // ✅ Wrap LazyRow inside `item { }`
+            item {
                 LazyRow(
                     modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)
                 ) {
@@ -86,9 +87,6 @@ fun HomeScreen(navController: NavController) {
                     items(sampleProducts) { product ->
                         FoodCard(product)
                     }
-                   /* items(sampleProducts) { product ->
-                        ProductCard(product)
-                    }*/
                 }
             }
 
@@ -114,12 +112,12 @@ fun HomeScreen(navController: NavController) {
                 }
             }
 
-            item { // ✅ Wrap LazyRow inside `item { }`
+            item {
                 LazyRow(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)
                 ) {
                     items(donations) { donation ->
-                        DonationCard(donation)
+                        FoodDonationCard(donation)
                     }
                 }
             }

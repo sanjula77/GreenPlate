@@ -9,6 +9,7 @@ import com.example.greenplate.authentication.LoginScreen
 import com.example.greenplate.authentication.RegisterScreen
 import com.example.greenplate.donationScreen.Donate
 import com.example.greenplate.homeScreen.HomeScreen
+import com.example.greenplate.homeScreen.ProductScreen
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -31,6 +32,9 @@ fun MyNav() {
         }
         composable("donate") {
             Donate(navController)
+        }
+        composable("product") {
+            ProductScreen(navController)
         }
     }
 }

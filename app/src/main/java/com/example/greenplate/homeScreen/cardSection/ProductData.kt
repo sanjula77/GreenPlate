@@ -9,6 +9,7 @@ data class Product(
     val price: String,
     val sellerName: String,
     @DrawableRes val sellerImageRes: Int,
-    val rating: Float
+    val rating: Float,
+    val location: String
 )
 

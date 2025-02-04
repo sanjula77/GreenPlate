@@ -34,7 +34,7 @@ import com.example.greenplate.R
 fun DonationCard(donation: Donation) {
     androidx.compose.material3.Card(
         modifier = Modifier
-            .width(411.dp)
+            .fillMaxWidth()
             .padding(8.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)

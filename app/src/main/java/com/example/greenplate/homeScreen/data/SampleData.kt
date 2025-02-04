@@ -12,7 +12,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.profile1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -21,7 +22,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.profile1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -30,7 +32,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.profile1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -39,7 +42,9 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.profile1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
+
         ), Product(
             imageRes = R.drawable.carrot,
             title = "Carrot",
@@ -47,7 +52,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.my1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -56,7 +62,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.my1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -65,7 +72,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.my1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -74,7 +82,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.my1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         ),
         Product(
             imageRes = R.drawable.carrot,
@@ -83,7 +92,8 @@ fun getSampleProducts(): List<Product> {
             price = "230.00",
             sellerName = "Gihan Sanjula",
             sellerImageRes = R.drawable.my1,
-            rating = 4.7f
+            rating = 4.7f,
+            location = "Colombo"
         )
     )
 }

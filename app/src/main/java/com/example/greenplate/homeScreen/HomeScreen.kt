@@ -32,6 +32,7 @@ import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.donationScreen.DonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
+import com.example.greenplate.homeScreen.cardSection.FoodCard
 import com.example.greenplate.homeScreen.cardSection.ProductCard
 import com.example.greenplate.homeScreen.data.getSampleProducts
 
@@ -79,11 +80,15 @@ fun HomeScreen(navController: NavController) {
 
             item { // ✅ Wrap LazyRow inside `item { }`
                 LazyRow(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)
                 ) {
+
                     items(sampleProducts) { product ->
-                        ProductCard(product)
+                        FoodCard(product)
                     }
+                   /* items(sampleProducts) { product ->
+                        ProductCard(product)
+                    }*/
                 }
             }
 

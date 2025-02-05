@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -30,11 +29,9 @@ import com.example.greenplate.R
 import com.example.greenplate.topAppBar.PostInputSection
 import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
-import com.example.greenplate.donationScreen.DonationCard
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
 import com.example.greenplate.homeScreen.cardSection.FoodCard
-import com.example.greenplate.homeScreen.cardSection.ProductCard
 import com.example.greenplate.homeScreen.data.getSampleProducts
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,6 +85,17 @@ fun HomeScreen(navController: NavController) {
                         FoodCard(product)
                     }
                 }
+            }
+
+            item {
+                Text(
+                    text = "Emergency help",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+                DonationCard()
             }
 
             item {

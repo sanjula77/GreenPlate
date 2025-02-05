@@ -28,7 +28,7 @@ val items = listOf(
     BottomNavItem(
         title = "Notificatio",
         icon = Icons.Rounded.Notifications,
-        route = "product"
+        route = "notification"
     ),
     BottomNavItem(
         title = "Account",

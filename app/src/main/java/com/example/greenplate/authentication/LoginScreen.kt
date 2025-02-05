@@ -1,6 +1,5 @@
 package com.example.greenplate.authentication
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -33,6 +32,7 @@ fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var rememberMeChecked by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -85,6 +85,33 @@ fun LoginScreen(navController: NavController) {
             )
         )
 
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
+        ) {
+            Checkbox(
+                checked = rememberMeChecked,
+                onCheckedChange = { rememberMeChecked = it }
+            )
+
+            Text(
+                text = "Remember Me",
+                fontSize = 12.sp,
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "Forgot Password?",
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable {  },
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp
+            )
+        }
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
@@ -120,7 +147,7 @@ fun LoginScreen(navController: NavController) {
         SocialButton(
             text = "Continue with Google",
             iconRes = painterResource(id = R.drawable.google),
-            backgroundColor = MaterialTheme.colorScheme.background
+            backgroundColor = Color(0xFFBEFFAF),
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -128,17 +155,15 @@ fun LoginScreen(navController: NavController) {
         SocialButton(
             text = "Continue with Facebook",
             iconRes = painterResource(id = R.drawable.facebook),
-            backgroundColor = MaterialTheme.colorScheme.background
-        )
+            backgroundColor = Color(0xFFBEFFAF),        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        SocialButton(
+     /*   SocialButton(
             text = "Continue with Apple",
             iconRes = painterResource(id = R.drawable.apple),
-            backgroundColor = MaterialTheme.colorScheme.background
-        )
-
+            backgroundColor = Color(0xFFE1FFD9),
+        )*/
         Spacer(modifier = Modifier.height(32.dp))
 
         Row(
@@ -167,7 +192,7 @@ fun SocialButton(text: String, iconRes: Painter, backgroundColor: Color) {
         onClick = { },
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, Color.Black),
+      //  border = BorderStroke(1.dp, Color.Black),
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)

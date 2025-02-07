@@ -24,11 +24,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.greenplate.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(scrollBehavior: TopAppBarScrollBehavior) {
+fun TopBar(scrollBehavior: TopAppBarScrollBehavior, navController: NavController) {
     val customFontFamily = FontFamily(
         Font(R.font.aftasansthintegular, FontWeight.Normal)
     )
@@ -48,7 +49,9 @@ fun TopBar(scrollBehavior: TopAppBarScrollBehavior) {
             )
         },
         actions = {
-            IconButton(onClick = { /* TODO: Search */ }) {
+            IconButton(onClick = {
+                navController.navigate("searchScreen")
+            }) {
                 Icon(
                     imageVector = Icons.Rounded.Search,
                     contentDescription = "Search",

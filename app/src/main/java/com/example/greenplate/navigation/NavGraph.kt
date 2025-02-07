@@ -12,6 +12,7 @@ import com.example.greenplate.homeScreen.HomeScreen
 import com.example.greenplate.homeScreen.ProductScreen
 import com.example.greenplate.notification.NotificationScreen
 import com.example.greenplate.profileSection.ProfileScreen
+import com.example.greenplate.topAppBar.SearchScreen
 
 @Composable
 fun MyNav() {
@@ -42,6 +43,9 @@ fun MyNav() {
         }
         composable("notification") {
             NotificationScreen(navController)
+        }
+        composable("searchScreen") {
+            SearchScreen(navController)
         }
     }
 }

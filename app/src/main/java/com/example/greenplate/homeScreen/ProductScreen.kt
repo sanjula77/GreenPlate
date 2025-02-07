@@ -26,7 +26,7 @@ fun ProductScreen(navController: NavController) {
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { TopBar(scrollBehavior = scrollBehavior) },
+        topBar = { TopBar(scrollBehavior = scrollBehavior, navController = navController) },
         bottomBar = { BottomNavigationBar(navController) },
 
         ) { paddingValues ->

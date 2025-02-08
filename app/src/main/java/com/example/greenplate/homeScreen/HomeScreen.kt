@@ -33,6 +33,7 @@ import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
 import com.example.greenplate.homeScreen.cardSection.FoodCard
+import com.example.greenplate.homeScreen.cardSection.SwipeableCardView
 import com.example.greenplate.homeScreen.data.getSampleProducts
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -133,6 +134,9 @@ fun HomeScreen(navController: NavController) {
                         FoodDonationCard(donation)
                     }
                 }
+            }
+            item {
+                SwipeableCardView()
             }
         }
     }

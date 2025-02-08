@@ -42,7 +42,8 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.material3:material3:1.2.0")
+    implementation(libs.com.google.accompanist.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
     implementation(libs.androidx.material3.v140alpha07)
     implementation(libs.androidx.material.v150)
     implementation(libs.androidx.material3.v120)

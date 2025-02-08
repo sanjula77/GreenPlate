@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.greenplate.navigation.MyNav
-import com.example.greenplate.notification.NotificationScreen
 import com.example.greenplate.ui.theme.GreenPlateTheme
 
 class MainActivity : ComponentActivity() {

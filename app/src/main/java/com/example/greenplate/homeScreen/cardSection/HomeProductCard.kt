@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -43,6 +45,7 @@ fun FoodCard(product: Product) {
             .padding(8.dp)
             .width(200.dp)
             .height(290.dp),
+        elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column{
             Image(
@@ -58,7 +61,7 @@ fun FoodCard(product: Product) {
 
             Text(
                 text = product.title,
-                fontSize = 22.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily(Font(R.font.interbold)),
                 modifier = Modifier.padding(start = 8.dp)
@@ -94,7 +97,7 @@ fun FoodCard(product: Product) {
                     )
                     Text(
                         text = product.location,
-                        fontSize = 13.sp
+                        fontSize = 12.sp
                     )
                 }
             }
@@ -108,16 +111,16 @@ fun FoodCard(product: Product) {
             ) {
                 Text(
                     text = "${product.price} LKR",
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF000000),
                 )
                 Box(
                     modifier = Modifier
-                        .width(50.dp)
+                        .width(60.dp)
                         .height(30.dp)
-                        .clip(RoundedCornerShape(16.dp)) // Fully round shape
-                        .background(Color(0xFFFFA000))
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(colorResource(id = R.color.greenBtn2))
                         .clickable {  },
                     contentAlignment = Alignment.Center
                 ) {

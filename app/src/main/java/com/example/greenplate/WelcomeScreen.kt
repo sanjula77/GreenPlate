@@ -104,7 +104,7 @@ fun WelcomeScreen(navController: NavController) {
                         .fillMaxWidth()
                         .height(80.dp)
                         .padding(bottom = 16.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_700))
+                    colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2))
                 ) {
                     Text(
                         text = "Get Started",

@@ -38,10 +38,7 @@ fun DonationCard() {
             .clip(RoundedCornerShape(12.dp)),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .background(Color.White)
-        ) {
+        Column {
             // Image Section
             Image(
                 painter = painterResource(id = R.drawable.emrgcny),
@@ -56,9 +53,9 @@ fun DonationCard() {
             // Text and Button Section
             Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
                 Text(
-                    text = "Donate for kids to their well being",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
+                    text = "Donate for kids to their well being and help them grow up",
+                 //   fontWeight = FontWeight.Bold,
+                    fontSize = 14.sp,
                     color = Color.Black
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -69,7 +66,7 @@ fun DonationCard() {
                 ) {
                     Text(
                         text = "Isha Foundation",
-                        fontSize = 14.sp,
+                        fontSize = 12.sp,
                         color = Color.Gray
                     )
                     Button(

@@ -45,7 +45,7 @@ fun MyNav() {
             NotificationScreen(navController)
         }
         composable("searchScreen") {
-            SearchScreen(navController)
+            SearchScreen()
         }
     }
 }

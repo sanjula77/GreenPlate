@@ -1,5 +1,7 @@
 package com.example.greenplate.topAppBar
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,11 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 
+@Preview
 @Composable
-fun SearchScreen(navController: NavHostController) {
+fun SearchScreen() {
     var searchText by remember { mutableStateOf("") }
     val focusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -27,13 +31,14 @@ fun SearchScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.95f))
             .padding(16.dp)
     ) {
-        // Back button
+
+      /*  // Back button
         IconButton(onClick = { navController.popBackStack() }) {
             Icon(imageVector = Icons.Rounded.ArrowBack, contentDescription = "Back", tint = Color.Black)
-        }
-
+        } */
 
         // Search TextField (Auto-Focus & Keyboard)
         TextField(
@@ -42,14 +47,16 @@ fun SearchScreen(navController: NavHostController) {
             placeholder = { Text("Search...", color = Color.Gray) },
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = 24.dp, bottom = 8.dp)
+                .border(1.dp, Color.Gray, MaterialTheme.shapes.extraLarge)
                 .focusRequester(focusRequester),
             singleLine = true,
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
                 disabledContainerColor = Color.Transparent,
-                focusedIndicatorColor = Color.Gray,
-                unfocusedIndicatorColor = Color.Gray
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
             ),
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Search

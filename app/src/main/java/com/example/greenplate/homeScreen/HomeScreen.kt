@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -63,15 +64,17 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text(
                         text = "Market Place",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                      //  fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        fontFamily = FontFamily(Font(R.font.interbold)),
                     )
                     Text(
-                        text = "See all",
+                        text = "View All",
                         fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {  }
+                        color = colorResource(id = R.color.greenBtn2),
+                        modifier = Modifier.clickable {
+                            navController.navigate("product")
+                        }
                     )
                 }
             }
@@ -90,9 +93,9 @@ fun HomeScreen(navController: NavController) {
             item {
                 Text(
                     text = "Emergency help",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                  //  fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(R.font.interbold)),
                     modifier = Modifier.padding(start = 16.dp)
                 )
                 DonationCard()
@@ -106,16 +109,18 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text(
                         text = "Donations",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                       // fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        fontFamily = FontFamily(Font(R.font.interbold)),
                         modifier = Modifier.padding(16.dp)
                     )
                     Text(
-                        text = "See all",
+                        text = "View All",
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {  }
+                        modifier = Modifier.clickable {
+                            navController.navigate("donate")
+                        }
                     )
                 }
             }

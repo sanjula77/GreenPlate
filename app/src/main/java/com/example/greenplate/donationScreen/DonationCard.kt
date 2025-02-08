@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -62,7 +63,7 @@ fun DonationCard(donation: Donation) {
 
                 Text(
                     text = donation.description,
-                    fontSize = 20.sp,
+                    fontSize = 17.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis
@@ -73,7 +74,7 @@ fun DonationCard(donation: Donation) {
                 LinearProgressIndicator(
                     progress = 0.6f,
                     modifier = Modifier.fillMaxWidth(),
-                    color = Color(0xFF9370DB),
+                    color = colorResource(id = R.color.greenBtn2),
                     trackColor = Color.LightGray
                 )
 
@@ -103,11 +104,12 @@ fun DonationCard(donation: Donation) {
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     TextButton(onClick = { /* Navigate to details */ }) {
-                        Text(text = "Read more", color = Color(0xFF9370DB))
+                        Text(text = "Read more", color = colorResource(id = R.color.greenBtn2))
                     }
                     Button(
                         onClick = { },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9370DB)),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
                         modifier = Modifier
                             .height(45.dp)
                             .width(130.dp)

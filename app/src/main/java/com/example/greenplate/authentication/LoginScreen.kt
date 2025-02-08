@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -54,7 +55,13 @@ fun LoginScreen(navController: NavController) {
             value = email,
             onValueChange = { email = it },
             label = { Text("Email") },
-            leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Email,
+                    contentDescription = "Email Icon",
+                   // tint = colorResource(id = R.color.greenBtn2)
+                )
+            },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -69,11 +76,21 @@ fun LoginScreen(navController: NavController) {
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
-            leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Password Icon") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Lock,
+                    contentDescription = "Password Icon",
+                  //  tint = colorResource(id = R.color.greenBtn2)
+                )
+            },
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Toggle Password Visibility",
+                        tint = colorResource(id = R.color.greenBtn2),
+                    )
                 }
             },
             shape = RoundedCornerShape(12.dp),
@@ -93,11 +110,17 @@ fun LoginScreen(navController: NavController) {
         ) {
             Checkbox(
                 checked = rememberMeChecked,
-                onCheckedChange = { rememberMeChecked = it }
+                onCheckedChange = { rememberMeChecked = it },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
+                    uncheckedColor = Color.Gray, // Color when unchecked
+                    checkmarkColor = Color.White // Color of the checkmark
+                )
             )
 
             Text(
                 text = "Remember Me",
+                color = colorResource(id = R.color.grayLtr2),
                 fontSize = 12.sp,
             )
 
@@ -105,7 +128,7 @@ fun LoginScreen(navController: NavController) {
 
             Text(
                 text = "Forgot Password?",
-                color = MaterialTheme.colorScheme.primary,
+                color = colorResource(id = R.color.greenBtn2),
                 modifier = Modifier.clickable {  },
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp
@@ -122,10 +145,9 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            )
-        ) {
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
+
+            ) {
             Text(text = "Login", style = MaterialTheme.typography.bodyLarge)
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -172,11 +194,14 @@ fun LoginScreen(navController: NavController) {
         ) {
             Text(
                 text = "Don't have an account?",
+                fontWeight = FontWeight.Normal,
+                color = colorResource(id = R.color.grayLtr2),
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "Sign Up",
+                color = colorResource(id = R.color.greenBtn2),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
                     navController.navigate("register")

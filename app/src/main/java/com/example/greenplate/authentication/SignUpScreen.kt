@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -35,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -64,7 +66,11 @@ fun RegisterScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth()
         ) {
             IconButton(onClick = {  }) {
-                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    tint = colorResource(id = R.color.greenBtn2)
+                )
             }
             Text(
                 text = "Create Your Account",
@@ -144,7 +150,11 @@ fun RegisterScreen(navController: NavController) {
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Toggle Password Visibility",
+                        tint = colorResource(id = R.color.greenBtn2),
+                    )
                 }
             },
             shape = RoundedCornerShape(12.dp),
@@ -165,27 +175,40 @@ fun RegisterScreen(navController: NavController) {
         ) {
             Checkbox(
                 checked = agreeTerms,
-                onCheckedChange = { agreeTerms = it }
+                onCheckedChange = { agreeTerms = it },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
+                    uncheckedColor = Color.Gray, // Color when unchecked
+                    checkmarkColor = Color.White // Color of the checkmark
+                )
             )
             Text(
-                text = "I agree to Alison’s ",
-                fontSize = 10.sp
+                text = "I agree to ",
+                color = colorResource(id = R.color.grayLtr),
+                fontSize = 11.sp
             )
             Text(
                 text = "Terms & Conditions",
-                fontSize = 10.sp,
-                color = Color.Green
+                fontSize = 11.sp,
+                color = colorResource(id = R.color.greenBtn2)
             )
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
                 checked = receiveUpdates,
-                onCheckedChange = { receiveUpdates = it }
+                onCheckedChange = { receiveUpdates = it },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
+                    uncheckedColor = Color.Gray, // Color when unchecked
+                    checkmarkColor = Color.White // Color of the checkmark
+                )
             )
             Text(
-                text = "I’d like to receive reports & updates on learning opportunities",
-                fontSize = 10.sp
+                text = "I doesn't like to receive reports & updates on learning opportunities",
+                style = TextStyle(lineHeight = 16.sp),
+                color = colorResource(id = R.color.grayLtr),
+                fontSize = 11.sp
             )
         }
 
@@ -198,7 +221,7 @@ fun RegisterScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(60.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.green_700)),
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
             ) {
             Text(
                 text = "Create An Account",
@@ -219,12 +242,17 @@ fun RegisterScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(text = "Already have an account?", fontSize = 14.sp)
+            Text(
+                text = "Already have an account?",
+                fontWeight = FontWeight.Normal,
+                color = colorResource(id = R.color.grayLtr2),
+                fontSize = 14.sp
+            )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "Log in",
                 fontSize = 14.sp,
-                color = Color.Green,
+                color = colorResource(id = R.color.greenBtn2),
                 modifier = Modifier.clickable {
                     navController.navigate("login")
                 }

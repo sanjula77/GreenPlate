@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -30,11 +30,10 @@ import com.example.greenplate.R
 import com.example.greenplate.topAppBar.PostInputSection
 import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
-import com.example.greenplate.donationScreen.DonationCard
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
 import com.example.greenplate.homeScreen.cardSection.FoodCard
-import com.example.greenplate.homeScreen.cardSection.ProductCard
+import com.example.greenplate.homeScreen.cardSection.SwipeableCardView
 import com.example.greenplate.homeScreen.data.getSampleProducts
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -48,7 +47,7 @@ fun HomeScreen(navController: NavController) {
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
-        topBar = { TopBar(scrollBehavior = scrollBehavior) },
+        topBar = { TopBar(scrollBehavior = scrollBehavior, navController = navController) },
         bottomBar = { BottomNavigationBar(navController) },
     ) { paddingValues ->
         LazyColumn(
@@ -66,15 +65,17 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text(
                         text = "Market Place",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                      //  fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        fontFamily = FontFamily(Font(R.font.interbold)),
                     )
                     Text(
-                        text = "See all",
+                        text = "View All",
                         fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {  }
+                        color = colorResource(id = R.color.greenBtn2),
+                        modifier = Modifier.clickable {
+                            navController.navigate("product")
+                        }
                     )
                 }
             }
@@ -91,6 +92,17 @@ fun HomeScreen(navController: NavController) {
             }
 
             item {
+                Text(
+                    text = "Emergency help",
+                  //  fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    fontFamily = FontFamily(Font(R.font.interbold)),
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+                DonationCard()
+            }
+
+            item {
                 Row(
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp).fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -98,16 +110,18 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Text(
                         text = "Donations",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                       // fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        fontFamily = FontFamily(Font(R.font.interbold)),
                         modifier = Modifier.padding(16.dp)
                     )
                     Text(
-                        text = "See all",
+                        text = "View All",
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable {  }
+                        modifier = Modifier.clickable {
+                            navController.navigate("donate")
+                        }
                     )
                 }
             }
@@ -120,6 +134,9 @@ fun HomeScreen(navController: NavController) {
                         FoodDonationCard(donation)
                     }
                 }
+            }
+            item {
+                SwipeableCardView()
             }
         }
     }

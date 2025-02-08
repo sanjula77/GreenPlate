@@ -1,6 +1,5 @@
 package com.example.greenplate.authentication
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -33,6 +33,7 @@ fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var rememberMeChecked by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -54,7 +55,13 @@ fun LoginScreen(navController: NavController) {
             value = email,
             onValueChange = { email = it },
             label = { Text("Email") },
-            leadingIcon = { Icon(imageVector = Icons.Filled.Email, contentDescription = "Email Icon") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Email,
+                    contentDescription = "Email Icon",
+                   // tint = colorResource(id = R.color.greenBtn2)
+                )
+            },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -69,11 +76,21 @@ fun LoginScreen(navController: NavController) {
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
-            leadingIcon = { Icon(imageVector = Icons.Filled.Lock, contentDescription = "Password Icon") },
+            leadingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.Lock,
+                    contentDescription = "Password Icon",
+                  //  tint = colorResource(id = R.color.greenBtn2)
+                )
+            },
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Toggle Password Visibility",
+                        tint = colorResource(id = R.color.greenBtn2),
+                    )
                 }
             },
             shape = RoundedCornerShape(12.dp),
@@ -85,6 +102,39 @@ fun LoginScreen(navController: NavController) {
             )
         )
 
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)
+        ) {
+            Checkbox(
+                checked = rememberMeChecked,
+                onCheckedChange = { rememberMeChecked = it },
+                colors = CheckboxDefaults.colors(
+                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
+                    uncheckedColor = Color.Gray, // Color when unchecked
+                    checkmarkColor = Color.White // Color of the checkmark
+                )
+            )
+
+            Text(
+                text = "Remember Me",
+                color = colorResource(id = R.color.grayLtr2),
+                fontSize = 12.sp,
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = "Forgot Password?",
+                color = colorResource(id = R.color.greenBtn2),
+                modifier = Modifier.clickable {  },
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp
+            )
+        }
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
@@ -95,10 +145,9 @@ fun LoginScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
-            )
-        ) {
+            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
+
+            ) {
             Text(text = "Login", style = MaterialTheme.typography.bodyLarge)
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -120,7 +169,7 @@ fun LoginScreen(navController: NavController) {
         SocialButton(
             text = "Continue with Google",
             iconRes = painterResource(id = R.drawable.google),
-            backgroundColor = MaterialTheme.colorScheme.background
+            backgroundColor = Color(0xFFBEFFAF),
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -128,17 +177,15 @@ fun LoginScreen(navController: NavController) {
         SocialButton(
             text = "Continue with Facebook",
             iconRes = painterResource(id = R.drawable.facebook),
-            backgroundColor = MaterialTheme.colorScheme.background
-        )
+            backgroundColor = Color(0xFFBEFFAF),        )
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        SocialButton(
+     /*   SocialButton(
             text = "Continue with Apple",
             iconRes = painterResource(id = R.drawable.apple),
-            backgroundColor = MaterialTheme.colorScheme.background
-        )
-
+            backgroundColor = Color(0xFFE1FFD9),
+        )*/
         Spacer(modifier = Modifier.height(32.dp))
 
         Row(
@@ -147,11 +194,14 @@ fun LoginScreen(navController: NavController) {
         ) {
             Text(
                 text = "Don't have an account?",
+                fontWeight = FontWeight.Normal,
+                color = colorResource(id = R.color.grayLtr2),
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(modifier = Modifier.width(4.dp))
             Text(
                 text = "Sign Up",
+                color = colorResource(id = R.color.greenBtn2),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.clickable {
                     navController.navigate("register")
@@ -167,7 +217,7 @@ fun SocialButton(text: String, iconRes: Painter, backgroundColor: Color) {
         onClick = { },
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         shape = RoundedCornerShape(24.dp),
-        border = BorderStroke(1.dp, Color.Black),
+      //  border = BorderStroke(1.dp, Color.Black),
         modifier = Modifier
             .fillMaxWidth()
             .height(50.dp)

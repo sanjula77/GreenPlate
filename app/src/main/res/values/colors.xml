@@ -25,4 +25,9 @@
     <color name="gray_200">#FFEEEEEE</color>
     <color name="gray_500">#FF9E9E9E</color>
     <color name="gray_700">#FF616161</color>
+    <color name="greenBtn"> #5fc23d</color>
+    <color name="greenBtn2">#019b5d</color>
+    <color name="greenLtr">#94d26f</color>
+    <color name="grayLtr">#9d9d9d</color>
+    <color name="grayLtr2">#5e676d</color>
 </resources>

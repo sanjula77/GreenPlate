@@ -8,9 +8,12 @@ import com.example.greenplate.WelcomeScreen
 import com.example.greenplate.authentication.LoginScreen
 import com.example.greenplate.authentication.RegisterScreen
 import com.example.greenplate.donationScreen.Donate
+import com.example.greenplate.education.CourseListScreen
 import com.example.greenplate.homeScreen.HomeScreen
 import com.example.greenplate.homeScreen.ProductScreen
-import kotlinx.serialization.Serializable
+import com.example.greenplate.notification.NotificationScreen
+import com.example.greenplate.profileSection.ProfileScreen
+import com.example.greenplate.topAppBar.SearchScreen
 
 @Composable
 fun MyNav() {
@@ -35,6 +38,18 @@ fun MyNav() {
         }
         composable("product") {
             ProductScreen(navController)
+        }
+        composable("account") {
+            ProfileScreen(navController)
+        }
+        composable("notification") {
+            NotificationScreen(navController)
+        }
+        composable("searchScreen") {
+            SearchScreen()
+        }
+        composable("courseList") {
+            CourseListScreen(navController)
         }
     }
 }

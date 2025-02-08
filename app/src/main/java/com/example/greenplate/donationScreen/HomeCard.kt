@@ -12,10 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.greenplate.R
 
 
 @Composable
@@ -61,12 +63,20 @@ fun FoodDonationCard(donation: Donation) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
 
+                    Text(
+                        text = "Read more",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = colorResource(id = R.color.greenBtn2),
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+
                     Box(
                         modifier = Modifier
                             .width(90.dp)
                             .height(40.dp)
-                            .clip(RoundedCornerShape(24.dp))
-                            .background(Color(0xFF7B61FF))
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(colorResource(id = R.color.greenBtn2))
                             .clickable {  },
                         contentAlignment = Alignment.Center
                     ) {
@@ -79,13 +89,6 @@ fun FoodDonationCard(donation: Donation) {
                         )
                     }
 
-                    Text(
-                        text = "Read more",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xFF7B61FF),
-                        modifier = Modifier.align(Alignment.CenterVertically)
-                    )
                 }
             }
         }

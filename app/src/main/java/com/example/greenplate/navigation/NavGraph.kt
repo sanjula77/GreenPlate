@@ -8,6 +8,7 @@ import com.example.greenplate.WelcomeScreen
 import com.example.greenplate.authentication.LoginScreen
 import com.example.greenplate.authentication.RegisterScreen
 import com.example.greenplate.donationScreen.Donate
+import com.example.greenplate.education.CourseListScreen
 import com.example.greenplate.homeScreen.HomeScreen
 import com.example.greenplate.homeScreen.ProductScreen
 import com.example.greenplate.notification.NotificationScreen
@@ -46,6 +47,9 @@ fun MyNav() {
         }
         composable("searchScreen") {
             SearchScreen()
+        }
+        composable("courseList") {
+            CourseListScreen(navController)
         }
     }
 }

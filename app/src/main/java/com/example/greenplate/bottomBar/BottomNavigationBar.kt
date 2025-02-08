@@ -23,7 +23,7 @@ val items = listOf(
     BottomNavItem(
         title = "Wallet",
         icon = Icons.Rounded.Wallet,
-        route = ""
+        route = "courseList"
     ),
     BottomNavItem(
         title = "Notificatio",

@@ -44,7 +44,7 @@ fun FoodCard(product: Product) {
         modifier = Modifier
             .padding(8.dp)
             .width(200.dp)
-            .height(290.dp),
+            .height(270.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column{
@@ -57,17 +57,17 @@ fun FoodCard(product: Product) {
                     .height(150.dp)
             )
 
-            Spacer(modifier = Modifier.height(14.dp))
+            Spacer(modifier = Modifier.height(7.dp))
 
             Text(
                 text = product.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily(Font(R.font.interbold)),
+                fontSize = 18.sp,
+              //  fontWeight = FontWeight.Bold,
+                fontFamily = FontFamily(Font(R.font.poppinsmedium)),
                 modifier = Modifier.padding(start = 8.dp)
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+          //  Spacer(modifier = Modifier.height(4.dp))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -79,11 +79,11 @@ fun FoodCard(product: Product) {
                         Icons.Default.Star,
                         contentDescription = "Rating",
                         tint = Color(0xFFFFA000),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                     Text(
                         text = "${product.rating}",
-                        fontSize = 12.sp,
+                        fontSize = 11.sp,
                         modifier = Modifier.padding(start = 4.dp, top = 2.dp)
                     )
                 }
@@ -93,7 +93,7 @@ fun FoodCard(product: Product) {
                         Icons.Default.LocationOn,
                         contentDescription = "Distance",
                         tint = Color(0xFF797373),
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(20.dp)
                     )
                     Text(
                         text = product.location,
@@ -102,7 +102,7 @@ fun FoodCard(product: Product) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -111,7 +111,7 @@ fun FoodCard(product: Product) {
             ) {
                 Text(
                     text = "${product.price} LKR",
-                    fontSize = 14.sp,
+                    fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF000000),
                 )
@@ -119,8 +119,8 @@ fun FoodCard(product: Product) {
                     modifier = Modifier
                         .width(60.dp)
                         .height(30.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(colorResource(id = R.color.greenBtn2))
+                        .clip(RoundedCornerShape(24.dp))
+                        .background(Color(0xFF5EB461))
                         .clickable {  },
                     contentAlignment = Alignment.Center
                 ) {

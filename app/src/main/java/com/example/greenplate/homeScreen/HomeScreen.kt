@@ -2,9 +2,12 @@ package com.example.greenplate.homeScreen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -55,17 +58,46 @@ fun HomeScreen(navController: NavController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            item { PostInputSection() }
+            item {
+                PostInputSection()
+            }
+
+            item {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp)
+                ) {
+                    Text(
+                        text = "Hello changemaker",
+                        fontSize = 26.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = FontFamily(Font(R.font.latobold)),
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    Text(
+                        text = "With just $0.80, you can share the meal with someone in need.",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = colorResource(id = R.color.grayLtr2),
+                        modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
+                    )
+                }
+            }
 
             item {
                 Row(
-                    modifier = Modifier.padding(16.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = "Market Place",
-                      //  fontWeight = FontWeight.Bold,
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(R.font.interbold)),
                     )
@@ -94,31 +126,31 @@ fun HomeScreen(navController: NavController) {
             item {
                 Text(
                     text = "Emergency help",
-                  //  fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     fontFamily = FontFamily(Font(R.font.interbold)),
-                    modifier = Modifier.padding(start = 16.dp)
+                    modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 4.dp)
                 )
-                DonationCard()
+                EmergencyCard()
             }
 
             item {
                 Row(
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp).fillMaxWidth(),
+                    modifier = Modifier
+                        .padding(start = 8.dp, end = 16.dp)
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
                         text = "Donations",
-                       // fontWeight = FontWeight.Bold,
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(R.font.interbold)),
-                        modifier = Modifier.padding(16.dp)
+                        modifier = Modifier.padding(8.dp)
                     )
                     Text(
                         text = "View All",
                         fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.primary,
+                        color = colorResource(id = R.color.greenBtn2),
                         modifier = Modifier.clickable {
                             navController.navigate("donate")
                         }

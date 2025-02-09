@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,7 @@ fun NotificationHeader() {
         Icon(
             imageVector = Icons.Default.Search,
             contentDescription = "Search",
-            tint = Color.Gray,
+            tint = colorResource(id = R.color.grayLtr2),
             modifier = Modifier
                 .size(35.dp)
         )

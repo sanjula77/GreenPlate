@@ -21,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.greenplate.R
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(navController: NavController) {
     var firstName by remember { mutableStateOf("") }
@@ -69,7 +71,7 @@ fun RegisterScreen(navController: NavController) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
-                    tint = colorResource(id = R.color.greenBtn2)
+                    tint = Color.Black/*colorResource(id = R.color.greenBtn2)*/
                 )
             }
             Text(
@@ -86,10 +88,10 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = firstName,
             onValueChange = { firstName = it },
-            label = {
+            placeholder = {
                 Text(
                     "First Name",
-                    color = Color.Gray,
+                    color = colorResource(id = R.color.grayLtr),
                     fontSize = 12.sp
                 )
             },
@@ -97,9 +99,10 @@ fun RegisterScreen(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = colorResource(id = R.color.greenBtn2),
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                cursorColor = Color.Gray.copy(alpha = 0.5f)
             )
         )
 
@@ -108,18 +111,21 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = lastName,
             onValueChange = { lastName = it },
-            label = { Text(
-                "Last Name",
-                color = Color.Gray,
-                fontSize = 12.sp
-            ) },
+            placeholder = {
+                Text(
+                    "Last Name",
+                    color = colorResource(id = R.color.grayLtr),
+                    fontSize = 12.sp
+                )
+            },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = colorResource(id = R.color.greenBtn2),
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                cursorColor = Color.Gray.copy(alpha = 0.5f)
             )
         )
 
@@ -128,15 +134,21 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Email Address",color = Color.Gray,
-                fontSize = 12.sp) },
+            placeholder = {
+                Text(
+                    "Email Address",
+                    color = colorResource(id = R.color.grayLtr),
+                    fontSize = 12.sp
+                )
+            },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
             colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = colorResource(id = R.color.greenBtn2),
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                cursorColor = Color.Gray.copy(alpha = 0.5f)
             )
         )
 
@@ -145,15 +157,20 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Password (6+ Characters)", color = Color.Gray,
-                fontSize = 12.sp) },
+            placeholder = {
+                Text(
+                    "Password (6+ Characters)",
+                    color = colorResource(id = R.color.grayLtr),
+                    fontSize = 12.sp
+                )
+            },
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(
                         imageVector = icon,
                         contentDescription = "Toggle Password Visibility",
-                        tint = colorResource(id = R.color.greenBtn2),
+                        tint = colorResource(id = R.color.grayLtr),
                     )
                 }
             },
@@ -162,9 +179,10 @@ fun RegisterScreen(navController: NavController) {
             singleLine = true,
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = colorResource(id = R.color.greenBtn2),
                 unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
+                disabledIndicatorColor = Color.Transparent,
+                cursorColor = Color.Gray.copy(alpha = 0.5f)
             )
         )
 

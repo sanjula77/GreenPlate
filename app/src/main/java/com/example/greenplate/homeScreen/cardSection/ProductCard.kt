@@ -24,11 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.greenplate.R
 
 @Composable
 fun ProductCard(product: Product) {
@@ -39,7 +41,7 @@ fun ProductCard(product: Product) {
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) { // Ensure full width
+        Column(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(id = product.imageRes),
                 contentDescription = null,
@@ -49,9 +51,10 @@ fun ProductCard(product: Product) {
                 contentScale = ContentScale.Crop
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp)
+            ) {
                 Text(
                     text = product.title,
                     fontSize = 20.sp,
@@ -100,17 +103,16 @@ fun ProductCard(product: Product) {
                     }
 
                     Button(
-                        onClick = { /* TODO: Handle contact click */ },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.LightGray),
+                        onClick = {  },
+                        colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
                         modifier = Modifier
-                            .border(1.dp, Color.Black, RoundedCornerShape(20.dp))
-                            .height(40.dp)
-                            .padding(horizontal = 8.dp)
+                            .height(40.dp),
+                        shape = RoundedCornerShape(14.dp)
                     ) {
                         Text(
                             text = "Contact",
                             fontSize = 14.sp,
-                            color = Color.Black,
+                            color = Color.White,
                         )
                     }
                 }

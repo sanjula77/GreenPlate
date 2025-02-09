@@ -17,6 +17,7 @@ material = "1.7.7"
 material3 = "1.3.1"
 material3Version = "1.2.0"
 materialIconsExtended = "1.7.7"
+materialIconsExtendedVersion = "1.5.0"
 materialVersion = "1.5.0"
 ui = "1.7.7"
 benchmarkMacro = "1.3.3"
@@ -29,6 +30,7 @@ serialization = "1.6.3"
 
 [libraries]
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "googleAccompanistPagerVersion" }
+androidx-material-icons-extended-v150 = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtendedVersion" }
 androidx-material-v150 = { module = "androidx.compose.material:material", version.ref = "materialVersion" }
 androidx-material3-v120 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
 androidx-material3-v140alpha07 = { module = "androidx.compose.material3:material3", version.ref = "androidxMaterial3" }

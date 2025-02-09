@@ -1,5 +1,6 @@
 package com.example.greenplate.homeScreen.cardSection
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -79,9 +80,11 @@ fun SwipeableCardView() {
                             onClick = { },
                             shape = RoundedCornerShape(8.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-                            border = ButtonDefaults.outlinedButtonBorder
-                        ) {
-                            Text(text = "Read more", color = Color.White)
+                            border = BorderStroke(1.dp, Color.White)                        ) {
+                            Text(
+                                text = "Read more",
+                                color = Color.White
+                            )
                         }
                     }
                 }

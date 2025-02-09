@@ -73,10 +73,10 @@ fun FoodDonationCard(donation: Donation) {
 
                     Box(
                         modifier = Modifier
-                            .width(90.dp)
+                            .width(100.dp)
                             .height(40.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(colorResource(id = R.color.greenBtn2))
+                            .clip(RoundedCornerShape(24.dp))
+                            .background(Color(0xFF5EB461))
                             .clickable {  },
                         contentAlignment = Alignment.Center
                     ) {

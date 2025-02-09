@@ -51,7 +51,10 @@ fun DonationCard(donation: Donation) {
                 contentScale = ContentScale.Crop
             )
 
-            Column(modifier = Modifier.padding(16.dp)) {
+            Column(
+                modifier = Modifier
+                    .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp)
+            ) {
                 Text(
                     text = donation.title,
                     fontSize = 14.sp,
@@ -59,7 +62,7 @@ fun DonationCard(donation: Donation) {
                     fontFamily = FontFamily(Font(R.font.aftasansthintegular)),
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = donation.description,

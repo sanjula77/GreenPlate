@@ -2,6 +2,7 @@ package com.example.greenplate.bottomBar
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.AccountCircle
+import androidx.compose.material.icons.rounded.Book
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Wallet
@@ -21,12 +22,12 @@ val items = listOf(
         route = "home"
     ),
     BottomNavItem(
-        title = "Wallet",
-        icon = Icons.Rounded.Wallet,
+        title = "Courses",
+        icon = Icons.Rounded.Book,
         route = "courseList"
     ),
     BottomNavItem(
-        title = "Notificatio",
+        title = "Notifction",
         icon = Icons.Rounded.Notifications,
         route = "notification"
     ),

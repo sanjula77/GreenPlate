@@ -47,9 +47,7 @@ fun CourseCard(course: Course) {
         colors = CardDefaults.cardColors(containerColor = Color.White)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-
             Row {
-                // Course Image
                 Box {
                     Image(
                         painter = painterResource(id = course.imageRes),

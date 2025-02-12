@@ -42,6 +42,27 @@ android {
 
 dependencies {
 
+
+    implementation("io.ktor:ktor-client-android:2.3.6")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.6")
+    implementation("io.ktor:ktor-client-logging:2.3.6")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.6")
+
+    implementation("androidx.compose.ui:ui:1.5.0")
+    implementation("androidx.compose.material3:material3:1.1.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
+
+    implementation("org.slf4j:slf4j-android:1.7.30")
+ /*   implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.logging.v236)
+    implementation(libs.slf4j.android)
+
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio) // Async HTTP client
+    implementation(libs.ktor.client.logging) // Logging
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+*/
     implementation(libs.androidx.material.icons.extended.v150)
 
     implementation(libs.com.google.accompanist.accompanist.pager)

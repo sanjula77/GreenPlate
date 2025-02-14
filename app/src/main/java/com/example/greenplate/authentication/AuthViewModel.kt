@@ -10,6 +10,7 @@ class AuthViewModel : ViewModel() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
 
+    // Register User
     fun registerUser(
         context: Context,
         firstName: String,
@@ -51,6 +52,28 @@ class AuthViewModel : ViewModel() {
                     }
                 } else {
                     onError("Registration failed: ${task.exception?.message}")
+                }
+            }
+    }
+
+    // Login User
+    fun loginUser(
+        email: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        if (email.isEmpty() || password.isEmpty()) {
+            onError("Please fill in all fields")
+            return
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    onSuccess() // Successful login
+                } else {
+                    onError("Invalid email or password")
                 }
             }
     }

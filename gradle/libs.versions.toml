@@ -3,6 +3,7 @@ agp = "8.8.0"
 androidxMaterial3 = "1.4.0-alpha07"
 coilCompose = "2.4.0"
 converterGson = "2.9.0"
+firebaseBom = "33.9.0"
 foundation = "1.7.7"
 googleAccompanistPagerVersion = "0.31.1-alpha"
 kotlin = "2.0.0"
@@ -45,6 +46,10 @@ androidx-material3-v120 = { module = "androidx.compose.material3:material3", ver
 androidx-material3-v140alpha07 = { module = "androidx.compose.material3:material3", version.ref = "androidxMaterial3" }
 com-google-accompanist-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "googleAccompanistPagerVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth-ktx = { module = "com.google.firebase:firebase-auth-ktx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-firestore-ktx = { module = "com.google.firebase:firebase-firestore-ktx" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientAndroid" }
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientContentNegotiation" }

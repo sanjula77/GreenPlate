@@ -2,40 +2,18 @@ package com.example.greenplate.authentication
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -43,18 +21,22 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.greenplate.R
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(navController: NavController, authViewModel: AuthViewModel = viewModel()) {
+    val context = LocalContext.current
+
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var agreeTerms by remember { mutableStateOf(false) }
-    var receiveUpdates by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -63,23 +45,11 @@ fun RegisterScreen(navController: NavController) {
             .padding(16.dp),
     ) {
         Spacer(modifier = Modifier.height(24.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            IconButton(onClick = {  }) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.Black/*colorResource(id = R.color.greenBtn2)*/
-                )
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back", tint = Color.Black)
             }
-            Text(
-                text = "Create Your Account",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.ExtraBold,
-                modifier = Modifier.padding(start = 8.dp)
-            )
+            Text(text = "Create Your Account", fontSize = 14.sp, fontWeight = FontWeight.ExtraBold, modifier = Modifier.padding(start = 8.dp))
         }
         Spacer(modifier = Modifier.height(16.dp))
         Divider(thickness = 1.dp)
@@ -88,13 +58,7 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = firstName,
             onValueChange = { firstName = it },
-            placeholder = {
-                Text(
-                    "First Name",
-                    color = colorResource(id = R.color.grayLtr),
-                    fontSize = 12.sp
-                )
-            },
+            placeholder = { Text("First Name", fontSize = 12.sp, color = colorResource(id = R.color.grayLtr)) },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -111,13 +75,7 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = lastName,
             onValueChange = { lastName = it },
-            placeholder = {
-                Text(
-                    "Last Name",
-                    color = colorResource(id = R.color.grayLtr),
-                    fontSize = 12.sp
-                )
-            },
+            placeholder = { Text("Last Name", fontSize = 12.sp, color = colorResource(id = R.color.grayLtr)) },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -134,13 +92,7 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            placeholder = {
-                Text(
-                    "Email Address",
-                    color = colorResource(id = R.color.grayLtr),
-                    fontSize = 12.sp
-                )
-            },
+            placeholder = { Text("Email Address", fontSize = 12.sp, color = colorResource(id = R.color.grayLtr)) },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
@@ -157,101 +109,79 @@ fun RegisterScreen(navController: NavController) {
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            placeholder = {
-                Text(
-                    "Password (6+ Characters)",
-                    color = colorResource(id = R.color.grayLtr),
-                    fontSize = 12.sp
-                )
-            },
+            placeholder = { Text("Password (6+ Characters)", fontSize = 12.sp,  color = colorResource(id = R.color.grayLtr)) },
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = "Toggle Password Visibility",
-                        tint = colorResource(id = R.color.grayLtr),
-                    )
+                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
                 }
             },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true,
-            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = colorResource(id = R.color.greenBtn2),
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
                 cursorColor = Color.Gray.copy(alpha = 0.5f)
-            )
+            ),
+            visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation()
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            Checkbox(
-                checked = agreeTerms,
-                onCheckedChange = { agreeTerms = it },
-                colors = CheckboxDefaults.colors(
-                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
-                    uncheckedColor = Color.Gray, // Color when unchecked
-                    checkmarkColor = Color.White // Color of the checkmark
-                )
-            )
-            Text(
-                text = "I agree to ",
-                color = colorResource(id = R.color.grayLtr),
-                fontSize = 11.sp
-            )
-            Text(
-                text = "Terms & Conditions",
-                fontSize = 11.sp,
-                color = colorResource(id = R.color.greenBtn2)
-            )
-        }
-
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Checkbox(
-                checked = receiveUpdates,
-                onCheckedChange = { receiveUpdates = it },
-                colors = CheckboxDefaults.colors(
-                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
-                    uncheckedColor = Color.Gray, // Color when unchecked
-                    checkmarkColor = Color.White // Color of the checkmark
-                )
-            )
+            Checkbox(checked = agreeTerms, onCheckedChange = { agreeTerms = it },colors = CheckboxDefaults.colors(
+                checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
+                uncheckedColor = Color.Gray, // Color when unchecked
+                checkmarkColor = Color.White // Color of the checkmark
+            ))
+            Text(text = "I agree to", fontSize = 11.sp)
+            Text(text = " Terms & Conditions", fontSize = 11.sp, color = colorResource(id = R.color.greenBtn2))
+        }
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+        if (errorMessage.isNotEmpty()) {
             Text(
-                text = "I doesn't like to receive reports & updates on learning opportunities",
-                style = TextStyle(lineHeight = 16.sp),
-                color = colorResource(id = R.color.grayLtr),
-                fontSize = 11.sp
+                text = errorMessage,
+                color = Color.Red,
+                style = TextStyle(fontSize = 14.sp, fontWeight = FontWeight.Bold),
+                modifier = Modifier.fillMaxWidth().padding(8.dp)
             )
         }
 
-        Spacer(modifier = Modifier.height(80.dp))
-
-        // Create Account Button
         Button(
-            onClick = {  },
+            onClick = {
+                isLoading = true
+                authViewModel.registerUser(
+                    context = context,
+                    firstName = firstName,
+                    lastName = lastName,
+                    email = email,
+                    password = password,
+                    agreeTerms = agreeTerms,
+                    onSuccess = {
+                        isLoading = false
+                        navController.navigate("home")
+                    },
+                    onError = { errorMsg ->
+                        isLoading = false
+                        errorMessage = errorMsg
+                    }
+                )
+            },
             shape = RoundedCornerShape(12.dp),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(60.dp),
+            modifier = Modifier.fillMaxWidth().height(60.dp),
+            enabled = !isLoading,
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
-            ) {
-            Text(
-                text = "Create An Account",
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                fontSize = 16.sp
-            )
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(color = Color.White)
+            } else {
+                Text(text = "Create An Account", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
+            }
         }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Divider(thickness = 1.dp)
 
         Spacer(modifier = Modifier.height(32.dp))
 
@@ -260,21 +190,9 @@ fun RegisterScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(
-                text = "Already have an account?",
-                fontWeight = FontWeight.Normal,
-                color = colorResource(id = R.color.grayLtr2),
-                fontSize = 14.sp
-            )
+            Text(text = "Already have an account?", fontSize = 14.sp)
             Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = "Log in",
-                fontSize = 14.sp,
-                color = colorResource(id = R.color.greenBtn2),
-                modifier = Modifier.clickable {
-                    navController.navigate("login")
-                }
-            )
+            Text(text = "Log in", fontSize = 14.sp, color = colorResource(id = R.color.greenBtn2), modifier = Modifier.clickable { navController.navigate("login") })
         }
     }
 }

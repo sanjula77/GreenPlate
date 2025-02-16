@@ -1,5 +1,7 @@
 package com.example.greenplate.homeScreen
 
+import Product
+import ProductItem
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -34,8 +36,11 @@ import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
-import com.example.greenplate.market.FoodCard
-import com.example.greenplate.market.getSampleProducts
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import getProductList
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,8 +48,18 @@ fun HomeScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
         state = rememberTopAppBarState()
     )
-    val sampleProducts = getSampleProducts()
+   // val sampleProducts = getSampleProducts()
     val donations = getSampleDonations()
+    //val products = fetchProducts()
+
+    val productList = remember { mutableStateOf<List<Product>>(emptyList()) }
+    // Fetch product data when the screen is launched
+    LaunchedEffect(Unit) {
+        getProductList { products ->
+            productList.value = products
+        }
+    }
+
 
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -111,15 +126,22 @@ fun HomeScreen(navController: NavController) {
             }
 
             item {
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)
-                ) {
-
-                    items(sampleProducts) { product ->
-                        FoodCard(product)
+                LazyRow {
+                    items(productList.value) { product ->
+                        ProductItem(product)
                     }
                 }
             }
+
+          /*  item {
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)
+                ) {
+                    items(products) { product ->
+                     //   FoodCard(product)
+                    }
+                }
+            } */
 
             item {
                 Text(

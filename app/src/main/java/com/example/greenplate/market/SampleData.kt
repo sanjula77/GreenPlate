@@ -1,7 +1,6 @@
-package com.example.greenplate.homeScreen.data
+package com.example.greenplate.market
 
 import com.example.greenplate.R
-import com.example.greenplate.homeScreen.cardSection.Product
 
 fun getSampleProducts(): List<Product> {
     return listOf(

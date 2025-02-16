@@ -1,4 +1,4 @@
-package com.example.greenplate.homeScreen.cardSection
+package com.example.greenplate.homeScreen
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

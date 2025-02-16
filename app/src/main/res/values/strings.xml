@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">GreenPlate</string>
+    <string name="cloudinary_cloud_name">your_cloud_name</string>
+    <string name="cloudinary_api_key">your_api_key</string>
+    <string name="cloudinary_api_secret">your_api_secret</string>
 </resources>

@@ -71,9 +71,8 @@ fun TopBar(scrollBehavior: TopAppBarScrollBehavior, navController: NavController
     )
 }
 
-@Preview
 @Composable
-fun PostInputSection() {
+fun PostInputSection(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -111,13 +110,17 @@ fun PostInputSection() {
         }
         Spacer(modifier = Modifier.width(8.dp))
         IconButton(
-            onClick = { /* TODO: Open Image Picker */ },
+            onClick = {
+
+            },
             modifier = Modifier.size(40.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.add),
                 contentDescription = "Add",
-                modifier = Modifier.size(30.dp).clickable {  }
+                modifier = Modifier.size(30.dp).clickable {
+                    navController.navigate("productInput")
+                }
             )
         }
     }

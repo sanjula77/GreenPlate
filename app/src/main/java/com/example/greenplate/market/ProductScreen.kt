@@ -1,6 +1,5 @@
-package com.example.greenplate.homeScreen
+package com.example.greenplate.market
 
-import com.example.greenplate.donationScreen.getSampleDonations
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavController
 import com.example.greenplate.bottomBar.BottomNavigationBar
-import com.example.greenplate.homeScreen.cardSection.ProductCard
-import com.example.greenplate.homeScreen.data.getSampleProducts
 import com.example.greenplate.topAppBar.TopBar
 
 @OptIn(ExperimentalMaterial3Api::class)

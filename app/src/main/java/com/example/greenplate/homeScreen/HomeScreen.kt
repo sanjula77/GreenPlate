@@ -34,9 +34,8 @@ import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
-import com.example.greenplate.homeScreen.cardSection.FoodCard
-import com.example.greenplate.homeScreen.cardSection.SwipeableCardView
-import com.example.greenplate.homeScreen.data.getSampleProducts
+import com.example.greenplate.market.FoodCard
+import com.example.greenplate.market.getSampleProducts
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +57,7 @@ fun HomeScreen(navController: NavController) {
                 .padding(paddingValues)
         ) {
             item {
-                PostInputSection()
+                PostInputSection(navController)
             }
 
             item {

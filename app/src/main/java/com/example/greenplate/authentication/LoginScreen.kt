@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +27,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.greenplate.R
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,7 +85,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = colorResource(id = R.color.greenBtn2),
                 unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f),
-                cursorColor = Color.Gray.copy(alpha = 0.5f),
+                cursorColor = Color.Gray.copy(alpha = 0.5f)
             ),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Password)
         )
@@ -141,6 +143,12 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
         ) {
             Text(text = "Login", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
+        }
+
+        Button(
+            onClick = { navController.navigate("home") },
+        ) {
+            Text(text = "Log")
         }
 
         Spacer(modifier = Modifier.height(16.dp))

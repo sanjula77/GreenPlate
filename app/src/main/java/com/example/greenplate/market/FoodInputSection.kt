@@ -97,7 +97,7 @@ fun ProductInputScreen() {
 
         db.collection("products").add(productData)
             .addOnSuccessListener { documentReference ->
-                Log.d("Firestore", "Product added with ID: ${documentReference.id}")
+                Log.d("Firestore", "com.example.greenplate.market.Product added with ID: ${documentReference.id}")
                 Toast.makeText(context, "Data added successfully!", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
@@ -114,18 +114,19 @@ fun ProductInputScreen() {
          verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-            // Image Display Box
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp)
-                    .background(Color(0xFFFAFAFA), shape = RoundedCornerShape(24.dp))
-                    .border(1.dp, Color(0xFF12D18E), shape = RoundedCornerShape(24.dp))
-                    .clickable { pickImageLauncher.launch("image/*") }, // Opens gallery
-                contentAlignment = Alignment.Center
-            ) {
-                when {
-                    capturedImage != null -> Image(
+        // Gallery Option Box
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(180.dp)
+                .background(Color(0xFFFAFAFA), shape = RoundedCornerShape(24.dp))
+                .border(1.dp, Color(0xFF12D18E), shape = RoundedCornerShape(24.dp))
+                .clickable { pickImageLauncher.launch("image/*") }, // Opens gallery
+            contentAlignment = Alignment.Center
+        ) {
+            when {
+                capturedImage != null -> {
+                    Image(
                         bitmap = capturedImage!!.asImageBitmap(),
                         contentDescription = "Captured Image",
                         modifier = Modifier
@@ -133,8 +134,10 @@ fun ProductInputScreen() {
                             .clip(RoundedCornerShape(24.dp)),
                         contentScale = ContentScale.Crop
                     )
+                }
 
-                    imageUri != null -> Image(
+                imageUri != null -> {
+                    Image(
                         painter = rememberAsyncImagePainter(imageUri),
                         contentDescription = "Selected Image",
                         modifier = Modifier
@@ -142,13 +145,25 @@ fun ProductInputScreen() {
                             .clip(RoundedCornerShape(24.dp)),
                         contentScale = ContentScale.Crop
                     )
+                }
 
-                    else -> Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(Icons.Default.Image, contentDescription = "Select Image", tint = Color.Gray.copy(alpha = 0.6f), modifier = Modifier.size(48.dp))
-                        Text("Tap to select image", color = Color.Gray.copy(alpha = 0.6f), modifier = Modifier.padding(top = 8.dp))
+                else -> {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(
+                            imageVector = Icons.Default.Image,
+                            contentDescription = "Select Image",
+                            tint = Color.Gray.copy(alpha = 0.6f),
+                            modifier = Modifier.size(48.dp)
+                        )
+                        Text(
+                            text = "Tap to select image",
+                            color = Color.Gray.copy(alpha = 0.6f),
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
                     }
                 }
             }
+        }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,

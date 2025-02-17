@@ -8,15 +8,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.NavController
 import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.topAppBar.TopBar
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductScreen(navController: NavController) {
+
+    val productList = remember { mutableStateListOf<Product>() }
+
+    LaunchedEffect(Unit) {
+        getProductList { products ->
+            productList.clear()
+            productList.addAll(products) // ✅ Avoid unnecessary recomposition
+        }
+    }
+
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
         state = rememberTopAppBarState()
     )
@@ -28,11 +42,8 @@ fun ProductScreen(navController: NavController) {
 
         ) { paddingValues ->
 
-        val products = getSampleProducts()
-
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
-
-            items(products) { product ->
+            items(productList) { product ->
                 ProductCard(product)
             }
         }

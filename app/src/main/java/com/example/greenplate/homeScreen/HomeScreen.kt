@@ -1,7 +1,7 @@
 package com.example.greenplate.homeScreen
 
-import Product
-import ProductItem
+import com.example.greenplate.market.Product
+import com.example.greenplate.market.ProductItem
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -37,9 +37,11 @@ import com.example.greenplate.bottomBar.BottomNavigationBar
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getSampleDonations
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import getProductList
+import com.example.greenplate.market.ProductCard
+import com.example.greenplate.market.getProductList
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,11 +54,12 @@ fun HomeScreen(navController: NavController) {
     val donations = getSampleDonations()
     //val products = fetchProducts()
 
-    val productList = remember { mutableStateOf<List<Product>>(emptyList()) }
-    // Fetch product data when the screen is launched
+    val productList = remember { mutableStateListOf<Product>() }
+
     LaunchedEffect(Unit) {
         getProductList { products ->
-            productList.value = products
+            productList.clear()
+            productList.addAll(products) // ✅ Avoid unnecessary recomposition
         }
     }
 
@@ -127,7 +130,7 @@ fun HomeScreen(navController: NavController) {
 
             item {
                 LazyRow {
-                    items(productList.value) { product ->
+                    items(productList) { product ->
                         ProductItem(product)
                     }
                 }

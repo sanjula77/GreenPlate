@@ -18,32 +18,55 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.example.greenplate.R
 
 @Composable
 fun ProductCard(product: Product) {
+
+    val context = LocalContext.current
+
+    val optimizedUrl = product.imageUrl?.let {
+        it.replace("http://", "https://")
+            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
+    } ?: ""
+
+    val imageRequest = remember(optimizedUrl) {
+        ImageRequest.Builder(context)
+            .data(optimizedUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .crossfade(true)
+            .build()
+    }
+
     Card(
         modifier = Modifier
-            .width(411.dp)
-            .padding(8.dp),
+            .fillMaxWidth()
+            .padding(8.dp), // ✅ Removed hardcoded width
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Image(
-                painter = painterResource(id = product.imageRes),
-                contentDescription = null,
+
+            AsyncImage(
+                model = imageRequest,
+                contentDescription = "Product Image",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(180.dp),
@@ -51,8 +74,7 @@ fun ProductCard(product: Product) {
             )
 
             Column(
-                modifier = Modifier
-                    .padding(start = 16.dp, end = 16.dp, bottom = 16.dp, top = 8.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Text(
                     text = product.title,
@@ -86,7 +108,7 @@ fun ProductCard(product: Product) {
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Image(
-                            painter = painterResource(id = product.sellerImageRes),
+                            painter = painterResource(id = R.drawable.profile1),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(40.dp)
@@ -95,23 +117,22 @@ fun ProductCard(product: Product) {
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = product.sellerName,
+                            text = "Gihan Sanjula",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Medium
                         )
                     }
 
                     Button(
-                        onClick = {  },
+                        onClick = { /* TODO: Implement Contact Action */ },
                         colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
-                        modifier = Modifier
-                            .height(40.dp),
+                        modifier = Modifier.height(40.dp),
                         shape = RoundedCornerShape(14.dp)
                     ) {
                         Text(
                             text = "Contact",
                             fontSize = 14.sp,
-                            color = Color.White,
+                            color = Color.White
                         )
                     }
                 }
@@ -119,3 +140,4 @@ fun ProductCard(product: Product) {
         }
     }
 }
+

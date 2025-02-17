@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.example.greenplate.navigation.MyNav
+import com.example.greenplate.testFireStore.DisplayDataScreen
 import com.example.greenplate.ui.theme.GreenPlateTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,6 +23,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MyNav()
+                 //   ProductListScreen()
+                   // DisplayDataScreen()
                 }
             }
         }

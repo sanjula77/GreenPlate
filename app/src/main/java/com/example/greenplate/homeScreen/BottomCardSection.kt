@@ -22,9 +22,9 @@ import com.google.accompanist.pager.*
 fun SwipeableCardView() {
     val images = listOf(
         Pair(R.drawable.emrgcny, "Emergency Aid"),
-        Pair(R.drawable.hunger1, "School Feeding"),
+        Pair(R.drawable.placeholder, "School Feeding"),
         Pair(R.drawable.emrgcny, "Nutrition Support"),
-        Pair(R.drawable.hunger1, "Resilience Building")
+        Pair(R.drawable.placeholder, "Resilience Building")
     )
 
     val pagerState = rememberPagerState()

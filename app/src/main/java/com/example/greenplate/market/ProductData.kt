@@ -1,15 +1,13 @@
 package com.example.greenplate.market
 
-import androidx.annotation.DrawableRes
-
 data class Product(
-    @DrawableRes val imageRes: Int,
-    val title: String,
-    val description: String,
-    val price: String,
-    val sellerName: String,
-    @DrawableRes val sellerImageRes: Int,
-    val rating: Float,
-    val location: String
-)
-
+    val id: String = "",  // Default values to prevent null issues
+    val title: String = "",
+    val description: String = "",
+    val price: String = "0",
+    val location: String = "Unknown",
+    val rating: String = "0.0",
+    val imageUrl: String = ""
+) {
+    constructor() : this("", "", "", "0", "Unknown", "0.0", "") // Empty constructor required by Firestore
+}

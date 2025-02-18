@@ -1,5 +1,7 @@
 package com.example.greenplate.donationScreen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,10 +20,13 @@ import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -30,10 +35,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.example.greenplate.R
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DonationCard(donation: Donation) {
+
+    val context = LocalContext.current
+
+    val optimizedUrl = donation.imageUrl?.let {
+        it.replace("http://", "https://")
+            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
+    } ?: ""
+
+    val imageRequest = remember(optimizedUrl) {
+        ImageRequest.Builder(context)
+            .data(optimizedUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .placeholder(R.drawable.placeholder) // Placeholder for better UX
+            // .error(R.drawable.error_image) // Error image
+            .crossfade(true)
+            .build()
+    }
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,13 +71,13 @@ fun DonationCard(donation: Donation) {
         elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
     ) {
         Column {
-            Image(
-                painter = painterResource(id = donation.imageRes),
-                contentDescription = "Donation Image",
+            AsyncImage(
+                model = imageRequest,
+                contentDescription = "com.example.greenplate.market.Donation Image",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp),
-                contentScale = ContentScale.Crop
+                    .height(250.dp)
             )
 
             Column(
@@ -89,12 +118,12 @@ fun DonationCard(donation: Donation) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Collected ${donation.collectedAmount}",
+                        text = "Collected 453",
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp
                     )
                     Text(
-                        text = "${donation.daysLeft} days to go",
+                        text = donation.daysLeft,
                         color = Color.Gray,
                         fontSize = 14.sp
                     )

@@ -322,10 +322,6 @@ fun ProductInputScreen() {
         ) {
             Text("Upload & Save", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
         }
-
-      //  imageUrl?.let {
-       //     Spacer(modifier = Modifier.height(16.dp))
-        //    Text("Uploaded Image URL: $it")
-      //  }
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }

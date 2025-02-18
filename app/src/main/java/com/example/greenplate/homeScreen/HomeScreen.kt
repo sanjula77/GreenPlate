@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,13 +35,12 @@ import com.example.greenplate.R
 import com.example.greenplate.topAppBar.PostInputSection
 import com.example.greenplate.topAppBar.TopBar
 import com.example.greenplate.bottomBar.BottomNavigationBar
-import com.example.greenplate.donationScreen.FoodDonationCard
-import com.example.greenplate.donationScreen.getSampleDonations
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.example.greenplate.market.ProductCard
+import com.example.greenplate.donationScreen.Donation
+import com.example.greenplate.donationScreen.FoodDonationCard
+import com.example.greenplate.donationScreen.getDonationList
 import com.example.greenplate.market.getProductList
 
 
@@ -50,8 +50,6 @@ fun HomeScreen(navController: NavController) {
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(
         state = rememberTopAppBarState()
     )
-   // val sampleProducts = getSampleProducts()
-    val donations = getSampleDonations()
     //val products = fetchProducts()
 
     val productList = remember { mutableStateListOf<Product>() }
@@ -59,9 +57,19 @@ fun HomeScreen(navController: NavController) {
     LaunchedEffect(Unit) {
         getProductList { products ->
             productList.clear()
-            productList.addAll(products) // ✅ Avoid unnecessary recomposition
+            productList.addAll(products)
         }
     }
+
+    val donationList = remember { mutableStateListOf<Donation>() }
+
+    LaunchedEffect(true) {
+        getDonationList { donations ->
+            donationList.clear()
+            donationList.addAll(donations)
+        }
+    }
+
 
 
     Scaffold(
@@ -117,6 +125,15 @@ fun HomeScreen(navController: NavController) {
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(R.font.interbold)),
                     )
+                    Button(
+                        onClick = {
+                            navController.navigate("donationInput")
+                        }
+                    ) {
+                        Text(
+                            text = "Donation input"
+                        )
+                    }
                     Text(
                         text = "View All",
                         fontSize = 12.sp,
@@ -185,7 +202,7 @@ fun HomeScreen(navController: NavController) {
                 LazyRow(
                     modifier = Modifier.fillMaxWidth().padding(start = 4.dp, end = 4.dp)
                 ) {
-                    items(donations) { donation ->
+                    items(donationList) { donation ->
                         FoodDonationCard(donation)
                     }
                 }

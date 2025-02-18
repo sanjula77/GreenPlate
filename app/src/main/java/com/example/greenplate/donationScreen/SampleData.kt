@@ -1,5 +1,5 @@
 package com.example.greenplate.donationScreen
-
+/*
 import com.example.greenplate.R
 
 fun getSampleDonations(): List<Donation> {
@@ -34,3 +34,4 @@ fun getSampleDonations(): List<Donation> {
         )
     )
 }
+*/

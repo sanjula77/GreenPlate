@@ -88,7 +88,7 @@ fun DonationInputScreen() {
             "title" to title,
             "description" to description,
             "imageUrl" to imageUrl,
-            "timestamp" to Timestamp.now() // Store current time
+            "timestamp" to System.currentTimeMillis() // ✅ Correct format
         )
 
         db.collection("donations").add(donationData)
@@ -99,6 +99,7 @@ fun DonationInputScreen() {
                 Log.w("Firestore", "Error adding donation", e)
             }
     }
+
 
     Column(
         modifier = Modifier

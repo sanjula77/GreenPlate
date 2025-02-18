@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.greenplate.WelcomeScreen
 import com.example.greenplate.authentication.LoginScreen
 import com.example.greenplate.authentication.RegisterScreen
+import com.example.greenplate.donationScreen.DonationInputScreen
 import com.example.greenplate.donationScreen.Donate
 import com.example.greenplate.education.CourseListScreen
 import com.example.greenplate.homeScreen.HomeScreen
@@ -54,6 +55,9 @@ fun MyNav() {
         }
         composable("productInput") {
             ProductInputScreen()
+        }
+        composable("donationInput") {
+            DonationInputScreen()
         }
     }
 }

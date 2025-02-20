@@ -145,11 +145,6 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             Text(text = "Login", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
         }
 
-        Button(
-            onClick = { navController.navigate("home") },
-        ) {
-            Text(text = "Log")
-        }
 
         Spacer(modifier = Modifier.height(16.dp))
         Row(

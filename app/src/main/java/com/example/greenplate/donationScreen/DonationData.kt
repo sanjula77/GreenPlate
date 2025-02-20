@@ -22,14 +22,13 @@ data class Donation(
                 .toLocalDate()
             val today = LocalDate.now()
 
-            val daysBetween = ChronoUnit.DAYS.between(donationDate, today).toInt()
-
-            return when (daysBetween) {
+            return when (val daysBetween = ChronoUnit.DAYS.between(donationDate, today).toInt()) {
                 0 -> "Today"
-                1 -> "One day ago"
-                2 -> "Two days ago"
+                1 -> "1 day ago"
+                2 -> "2 days ago"
                 in 3..6 -> "$daysBetween days ago"
                 else -> "$daysBetween days ago"
             }
+
         }
 }

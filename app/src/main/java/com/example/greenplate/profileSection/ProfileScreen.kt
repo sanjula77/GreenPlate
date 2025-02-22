@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import com.example.greenplate.bottomBar.BottomNavigationBar
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(navController: NavController, userId: String) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController) },
     ) { paddingValues ->
@@ -21,13 +21,13 @@ fun ProfileScreen(navController: NavController) {
                 .background(MaterialTheme.colorScheme.background)
         ) {
             Spacer(modifier = Modifier.height(16.dp))
-            Header()
+            Header(navController, userId)
             Spacer(modifier = Modifier.height(20.dp))
             Info()
             Spacer(modifier = Modifier.height(8.dp))
             MenuItems()
             Spacer(modifier = Modifier.weight(1f))
-            Logout()
+            Logout(navController)
         }
     }
 }

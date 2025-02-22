@@ -1,6 +1,5 @@
 package com.example.greenplate.profileSection
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,19 +19,42 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.example.greenplate.R
 
 @Composable
-fun Header() {
+fun Header(navController: NavController, userId: String) {
+    val context = LocalContext.current
+
+    val user = getUserData(userId)
+    val optimizedUrl = user?.profileImageUrl?.let {
+        it.replace("http://", "https://")
+            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
+    } ?: ""
+
+    val imageRequest = remember(optimizedUrl) {
+        ImageRequest.Builder(context)
+            .data(optimizedUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .crossfade(true)
+            .build()
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,7 +80,9 @@ fun Header() {
                 tint = colorResource(id = R.color.grayLtr2),
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable {  }
+                    .clickable {
+                        navController.navigate("updateProfile")
+                    }
             )
         }
 
@@ -68,17 +92,19 @@ fun Header() {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.my1),
-                contentDescription = "Profile Picture",
+            AsyncImage(
+                model = imageRequest,
+                contentDescription = "com.example.greenplate.market.Product Image",
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(90.dp)
                     .clip(CircleShape)
             )
+
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
-                    text = "Gihan Sanjula",
+                    text = user?.let { "${it.firstName} ${it.lastName}" } ?: "Loading...",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -88,17 +114,6 @@ fun Header() {
                     color = Color.Gray
                 )
             }
-
-        /*    Spacer(modifier = Modifier.weight(1f))
-
-            Icon(
-                imageVector = Icons.Default.Edit,
-                contentDescription = "Edit",
-                tint = colorResource(id = R.color.grayLtr),
-                modifier = Modifier
-                    .size(24.dp)
-                    .clickable {  }
-            )*/
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -117,7 +132,7 @@ fun Header() {
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "+94 76 123 4567",
+               text = user?.phoneNumber ?: "Loading...",
                 color = colorResource(id = R.color.grayLtr2),
                 fontSize = 13.sp
             )
@@ -137,7 +152,7 @@ fun Header() {
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = "example94@gmail.com",
+                text = user?.email ?: "Loading...",
                 color = colorResource(id = R.color.grayLtr2),
                 fontSize = 13.sp
             )

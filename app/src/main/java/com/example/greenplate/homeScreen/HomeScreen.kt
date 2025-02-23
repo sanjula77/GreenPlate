@@ -42,6 +42,7 @@ import com.example.greenplate.donationScreen.Donation
 import com.example.greenplate.donationScreen.FoodDonationCard
 import com.example.greenplate.donationScreen.getDonationList
 import com.example.greenplate.market.getProductList
+import com.google.firebase.auth.FirebaseAuth
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,6 +71,8 @@ fun HomeScreen(navController: NavController) {
         }
     }
 
+    val auth = FirebaseAuth.getInstance()
+
 
 
     Scaffold(
@@ -83,7 +86,7 @@ fun HomeScreen(navController: NavController) {
                 .padding(paddingValues)
         ) {
             item {
-                PostInputSection(navController)
+                PostInputSection(navController, auth.currentUser?.uid ?: "")
             }
 
             item {

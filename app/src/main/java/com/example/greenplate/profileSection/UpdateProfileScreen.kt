@@ -3,17 +3,17 @@ package com.example.greenplate.profileSection
 import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Image
-import androidx.compose.material.icons.rounded.CameraAlt
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,11 +24,15 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import coil.compose.rememberAsyncImagePainter
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.cloudinary.Cloudinary
 import com.cloudinary.utils.ObjectUtils
 import com.example.greenplate.R
@@ -38,23 +42,58 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.util.concurrent.Executors
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpdateProfileScreen(navController: NavController, userId: String) {
     val context = LocalContext.current
+    val db = FirebaseFirestore.getInstance()
+
     var phoneNumber by remember { mutableStateOf("") }
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
     var imageUrl by remember { mutableStateOf<String?>(null) }
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
     var capturedImage by remember { mutableStateOf<Bitmap?>(null) }
 
+    // Fetch user data when the screen loads
+    LaunchedEffect(userId) {
+        db.collection("users").document(userId).get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val user = document.toObject(User::class.java)
+                    if (user != null) {
+                        firstName = user.firstName
+                        lastName = user.lastName
+                        email = user.email
+                        phoneNumber = user.phoneNumber
+                        imageUrl = user.profileImageUrl
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firestore", "Error fetching user data", e)
+            }
+    }
 
     val pickImageLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         imageUri = uri
-        capturedImage = null // Reset the captured image
+        capturedImage = null
     }
-    val cameraLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap: Bitmap? ->
-        capturedImage = bitmap
-        imageUri = null // Reset the gallery image
+
+    val user = getUserData(userId)
+    val optimizedUrl = user?.profileImageUrl?.let {
+        it.replace("http://", "https://")
+            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
+    } ?: ""
+
+    val imageRequest = remember(optimizedUrl) {
+        ImageRequest.Builder(context)
+            .data(optimizedUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .crossfade(true)
+            .build()
     }
 
     fun uploadToCloudinary(imageFile: File, onSuccess: (String) -> Unit) {
@@ -77,39 +116,38 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
         }
     }
 
-    fun updateUserProfile(userId: String, imageUrl: String, phoneNumber: String) {
-        val db = FirebaseFirestore.getInstance()
-
+    fun updateUserProfile(userId: String, imageUrl: String?, phoneNumber: String) {
         val userUpdates = mapOf(
-            "profileImageUrl" to imageUrl,
-            "phoneNumber" to phoneNumber
+            "profileImageUrl" to (imageUrl ?: ""),
+            "phoneNumber" to phoneNumber,
+            "firstName" to firstName,
+            "lastName" to lastName,
+            "email" to email
         )
 
         db.collection("users").document(userId)
             .update(userUpdates)
             .addOnSuccessListener {
                 Log.d("Firestore", "Profile updated successfully!")
+                Toast.makeText(context, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
                 Log.e("Firestore", "Error updating profile: ${e.message}")
             }
     }
 
-
-
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        // Gallery Option Box
+        Spacer(modifier = Modifier.height(55.dp))
+        // Image Section
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-                .background(Color(0xFFFAFAFA), shape = RoundedCornerShape(24.dp))
-                .border(1.dp, Color(0xFF12D18E), shape = RoundedCornerShape(24.dp))
-                .clickable { pickImageLauncher.launch("image/*") }, // Opens gallery
+                .size(200.dp)
+                .clip(CircleShape)
+                .background(Color.Gray.copy(alpha = 0.3f))
+                .clickable { pickImageLauncher.launch("image/*") },
             contentAlignment = Alignment.Center
         ) {
             when {
@@ -117,90 +155,108 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
                     Image(
                         bitmap = capturedImage!!.asImageBitmap(),
                         contentDescription = "Captured Image",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(24.dp)),
+                        modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
                 }
-
                 imageUri != null -> {
                     Image(
                         painter = rememberAsyncImagePainter(imageUri),
                         contentDescription = "Selected Image",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(24.dp)),
+                        modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
                 }
-
-                else -> {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(
-                            imageVector = Icons.Default.Image,
-                            contentDescription = "Select Image",
-                            tint = Color.Gray.copy(alpha = 0.6f),
-                            modifier = Modifier.size(48.dp)
-                        )
-                        Text(
-                            text = "Tap to select image",
-                            color = Color.Gray.copy(alpha = 0.6f),
-                            modifier = Modifier.padding(top = 8.dp)
-                        )
-                    }
+                imageUrl != null -> {
+                    AsyncImage(
+                        model = imageRequest,
+                        contentDescription = "com.example.greenplate.market.Product Image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape)
+                    )
                 }
-            }
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color(0xFFE7FAF4), shape = RoundedCornerShape(24.dp)),
-            contentAlignment = Alignment.Center
-
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                //   horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Open Camera & Take a picture",
-                    color = Color(0xFF12D18E),
-                    fontWeight = FontWeight.Bold,
-
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                IconButton(onClick = { cameraLauncher.launch(null) }) {
+                else -> {
                     Icon(
-                        Icons.Rounded.CameraAlt,
-                        contentDescription = "Open Camera",
-                        tint = Color(0xFF12D18E)
+                        imageVector = Icons.Default.Image,
+                        contentDescription = "Default Image",
+                        tint = Color.Gray.copy(alpha = 0.6f),
+                        modifier = Modifier.size(48.dp)
                     )
                 }
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(75.dp))
 
-        // Phone Number Input
+        OutlinedTextField(
+            value = firstName,
+            onValueChange = { firstName = it },
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF12D18E),
+                unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f),
+                cursorColor = Color.Gray.copy(alpha = 0.5f),
+            ),
+            textStyle = TextStyle(color = colorResource(id = R.color.grayLtr))
+        )
+
+        OutlinedTextField(
+            value = lastName,
+            onValueChange = { lastName = it },
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF12D18E),
+                unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f),
+                cursorColor = Color.Gray.copy(alpha = 0.5f),
+            ),
+            textStyle = TextStyle(color = colorResource(id = R.color.grayLtr))
+        )
+
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            readOnly = true,
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF12D18E),
+                unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f),
+                cursorColor = Color.Gray.copy(alpha = 0.5f),
+            ),
+            textStyle = TextStyle(color = colorResource(id = R.color.grayLtr))
+        )
+
         OutlinedTextField(
             value = phoneNumber,
             onValueChange = { phoneNumber = it },
-            label = { Text("Enter Phone Number") }
+            shape = RoundedCornerShape(12.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color(0xFF12D18E),
+                unfocusedBorderColor = Color.Gray.copy(alpha = 0.5f),
+                cursorColor = Color.Gray.copy(alpha = 0.5f),
+            ),
+            textStyle = TextStyle(color = colorResource(id = R.color.grayLtr))
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Update Profile Button
 
         Button(
             onClick = {
                 val file = when {
                     imageUri != null -> {
-                        // Convert Uri to File
                         val inputStream: InputStream? = context.contentResolver.openInputStream(imageUri!!)
                         val tempFile = File(context.cacheDir, "upload_image.jpg")
                         val outputStream = FileOutputStream(tempFile)
@@ -208,7 +264,6 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
                         tempFile
                     }
                     capturedImage != null -> {
-                        // Convert Bitmap to File
                         val tempFile = File(context.cacheDir, "captured_image.jpg")
                         val outputStream = FileOutputStream(tempFile)
                         capturedImage!!.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
@@ -224,15 +279,15 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
                         imageUrl = url
                         updateUserProfile(userId, url, phoneNumber)
                     }
-                }
+                } ?: updateUserProfile(userId, imageUrl, phoneNumber)
             },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.greenBtn2)),
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF12D18E)),
         ) {
-            Text("Upload & Save", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
+            Text("Update Profile", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
         }
     }
 }

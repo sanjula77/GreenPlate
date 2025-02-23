@@ -21,11 +21,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.layout.Row
+import androidx.compose.runtime.remember
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.example.greenplate.R
+import com.example.greenplate.profileSection.getUserData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,7 +78,22 @@ fun TopBar(scrollBehavior: TopAppBarScrollBehavior, navController: NavController
 }
 
 @Composable
-fun PostInputSection(navController: NavController) {
+fun PostInputSection(navController: NavController, userId: String) {
+    val context = LocalContext.current
+    val user = getUserData(userId)
+    val optimizedUrl = user?.profileImageUrl?.let {
+        it.replace("http://", "https://")
+            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
+    } ?: ""
+
+    val imageRequest = remember(optimizedUrl) {
+        ImageRequest.Builder(context)
+            .data(optimizedUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .crossfade(true)
+            .build()
+    }
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -81,14 +102,16 @@ fun PostInputSection(navController: NavController) {
             .padding(bottom = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.my1),
-            contentDescription = "Profile Image",
+        AsyncImage(
+            model = imageRequest,
+            contentDescription = "com.example.greenplate.market.Product Image",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
                 .clickable {  }
         )
+
         Spacer(modifier = Modifier.width(16.dp))
         Box(
             modifier = Modifier

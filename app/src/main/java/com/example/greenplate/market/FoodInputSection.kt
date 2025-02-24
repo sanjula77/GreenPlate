@@ -182,7 +182,8 @@ fun ProductInputScreen() {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color(0xFFE7FAF4), shape = RoundedCornerShape(24.dp)),
+                .background(Color(0xFFE7FAF4), shape = RoundedCornerShape(24.dp))
+                .clickable { cameraLauncher.launch(null) },
             contentAlignment = Alignment.Center
 
         ) {
@@ -197,7 +198,7 @@ fun ProductInputScreen() {
 
                     style = MaterialTheme.typography.bodyMedium
                 )
-                IconButton(onClick = { cameraLauncher.launch(null) }) {
+                IconButton(onClick = {  }) {
                     Icon(
                         Icons.Rounded.CameraAlt,
                         contentDescription = "Open Camera",

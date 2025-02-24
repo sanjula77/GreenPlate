@@ -23,6 +23,7 @@ uiToolingPreview = "1.7.7"
 composeNavigation = "2.8.6"
 serialization = "1.6.3"
 uiVersion = "1.7.8"
+foundationAndroidVersion = "1.7.2"
 
 [libraries]
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "googleAccompanistPagerVersion" }
@@ -56,6 +57,7 @@ play-services-nearby = { group = "com.google.android.gms", name = "play-services
 ui = { module = "androidx.compose.ui:ui", version.ref = "uiVersion" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroidVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

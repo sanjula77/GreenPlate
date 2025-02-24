@@ -104,7 +104,8 @@ fun DonationInputScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .padding(top = 32.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -180,7 +181,8 @@ fun DonationInputScreen() {
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                //   horizontalArrangement = Arrangement.Center
+                modifier = Modifier
+                    .clickable { cameraLauncher.launch(null) }
             ) {
                 Text(
                     text = "Open Camera & Take a picture",
@@ -189,7 +191,7 @@ fun DonationInputScreen() {
 
                     style = MaterialTheme.typography.bodyMedium
                 )
-                IconButton(onClick = { cameraLauncher.launch(null) }) {
+                IconButton(onClick = {  }) {
                     Icon(
                         Icons.Rounded.CameraAlt,
                         contentDescription = "Open Camera",

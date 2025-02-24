@@ -96,6 +96,7 @@ dependencies {
     // Google Play Services
     implementation(libs.play.services.nearby)
     implementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.foundation.android)
 
     // Testing
     testImplementation(libs.junit)

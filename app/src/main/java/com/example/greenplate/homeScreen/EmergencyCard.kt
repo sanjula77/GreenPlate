@@ -1,7 +1,6 @@
 package com.example.greenplate.homeScreen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
@@ -30,7 +28,7 @@ import com.example.greenplate.R
 
 @Preview(showBackground = true)
 @Composable
-fun DonationCard() {
+fun EmergencyCard() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -70,11 +68,14 @@ fun DonationCard() {
                         color = Color.Gray
                     )
                     Button(
-                        onClick = { /* Handle Donate Click */ },
+                        onClick = { },
                         shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFCDD2))
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF5EB461))
                     ) {
-                        Text(text = "Donate", color = Color.Red)
+                        Text(
+                            text = "Donate",
+                            color = Color.White
+                        )
                     }
                 }
             }

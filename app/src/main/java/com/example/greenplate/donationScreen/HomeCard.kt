@@ -1,6 +1,5 @@
 package com.example.greenplate.donationScreen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -12,16 +11,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.request.CachePolicy
+import coil.request.ImageRequest
 import com.example.greenplate.R
 
 
 @Composable
 fun FoodDonationCard(donation: Donation) {
+
+    val context = LocalContext.current
+
+    val optimizedUrl = donation.imageUrl?.let {
+        it.replace("http://", "https://")
+            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
+    } ?: ""
+
+    val imageRequest = remember(optimizedUrl) {
+        ImageRequest.Builder(context)
+            .data(optimizedUrl)
+            .diskCachePolicy(CachePolicy.ENABLED)
+            .memoryCachePolicy(CachePolicy.ENABLED)
+            .placeholder(R.drawable.placeholder) // Placeholder for better UX
+           // .error(R.drawable.error_image) // Error image
+            .crossfade(true)
+            .build()
+    }
+
+
     Card(
         shape = RoundedCornerShape(16.dp),
         modifier = Modifier
@@ -31,9 +53,10 @@ fun FoodDonationCard(donation: Donation) {
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column {
-            Image(
-                painter = painterResource(id = donation.imageRes),
-                contentDescription = "Food Donation",
+
+            AsyncImage(
+                model = imageRequest,
+                contentDescription = "com.example.greenplate.market.Donation Image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,10 +96,10 @@ fun FoodDonationCard(donation: Donation) {
 
                     Box(
                         modifier = Modifier
-                            .width(90.dp)
+                            .width(100.dp)
                             .height(40.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(colorResource(id = R.color.greenBtn2))
+                            .clip(RoundedCornerShape(24.dp))
+                            .background(Color(0xFF5EB461))
                             .clickable {  },
                         contentAlignment = Alignment.Center
                     ) {

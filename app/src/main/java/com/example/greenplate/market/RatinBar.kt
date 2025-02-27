@@ -1,4 +1,4 @@
-package com.example.greenplate.homeScreen.cardSection
+package com.example.greenplate.market
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size

@@ -18,6 +18,7 @@ import com.example.greenplate.market.ProductScreen
 import com.example.greenplate.notification.NotificationScreen
 import com.example.greenplate.profileSection.ProfileScreen
 import com.example.greenplate.profileSection.UpdateProfileScreen
+import com.example.greenplate.topAppBar.CreatePostScreen
 import com.example.greenplate.topAppBar.SearchScreen
 import com.google.firebase.auth.FirebaseAuth
 
@@ -67,6 +68,9 @@ fun MyNav() {
         }
         composable("updateProfile") {
             UpdateProfileScreen(navController, auth.currentUser?.uid ?: "")
+        }
+        composable("inputSection") {
+            CreatePostScreen(navController)
         }
     }
 }

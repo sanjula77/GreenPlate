@@ -141,13 +141,6 @@ fun HomeScreen(navController: NavController) {
                             fontSize = 18.sp,
                             fontFamily = FontFamily(Font(R.font.interbold)),
                         )
-                        Button(
-                            onClick = {
-                                navController.navigate("donationInput")
-                            }
-                        ) {
-                            Text(text = "Donate Now")
-                        }
                         Text(
                             text = "View All",
                             fontSize = 12.sp,

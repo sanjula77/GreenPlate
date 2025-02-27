@@ -260,7 +260,7 @@ fun PostInputSection(navController: NavController, userId: String) {
                 painter = painterResource(id = R.drawable.add),
                 contentDescription = "Add",
                 modifier = Modifier.size(30.dp).clickable {
-                    navController.navigate("productInput")
+                    navController.navigate("inputSection")
                 }
             )
         }

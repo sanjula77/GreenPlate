@@ -72,7 +72,7 @@ fun Header(navController: NavController, userId: String) {
                 tint = colorResource(id = R.color.grayLtr2),
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable {  }
+                    .clickable {  navController.popBackStack()  }
             )
             Icon(
                 imageVector = Icons.Default.Edit,

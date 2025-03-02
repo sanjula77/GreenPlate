@@ -1,5 +1,6 @@
 package com.example.greenplate.market
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,17 +45,22 @@ import com.example.greenplate.R
 fun ProductItem(product: Product) {
     val context = LocalContext.current
 
-    val optimizedUrl = product.imageUrl?.let {
-        it.replace("http://", "https://")
-            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
-    } ?: ""
+    // Ensure HTTPS and optimize URL for Cloudinary/Firebase
+    val imageUrl = product.imageUrl?.replace("http://", "https://") ?: ""
 
-    val imageRequest = remember(optimizedUrl) {
+    // Debugging
+    Log.d("ImageURL", "Loading image from: $imageUrl")
+
+    // Coil Image Request with Advanced Optimizations
+    val imageRequest = remember(imageUrl) {
         ImageRequest.Builder(context)
-            .data(optimizedUrl)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .crossfade(true)
+            .data(imageUrl)
+            .crossfade(300) // Faster crossfade transition
+            .diskCachePolicy(CachePolicy.ENABLED) // Cache on disk
+            .memoryCachePolicy(CachePolicy.ENABLED) // Cache in memory
+            .networkCachePolicy(CachePolicy.ENABLED) // Enable network cache
+            .placeholder(R.drawable.placeholder_image) // Preload placeholder
+            .error(R.drawable.error_image) // Show fallback if loading fails
             .build()
     }
 
@@ -67,13 +73,15 @@ fun ProductItem(product: Product) {
         elevation = CardDefaults.cardElevation(8.dp)
     ) {
         Column {
+            // Image with Smooth Loading
             AsyncImage(
                 model = imageRequest,
-                contentDescription = "com.example.greenplate.market.Product Image",
-                contentScale = ContentScale.Crop,
+                contentDescription = "Product Image",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
+                    .clip(RoundedCornerShape(12.dp)), // Smooth rounded corners
+                contentScale = ContentScale.Crop
             )
 
             Spacer(modifier = Modifier.height(7.dp))

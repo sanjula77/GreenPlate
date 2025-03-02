@@ -1,5 +1,6 @@
 package com.example.greenplate.topAppBar
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -193,23 +194,26 @@ fun DrawerItem(title: String, icon: ImageVector) {
     }
 }
 
-
-
 @Composable
 fun PostInputSection(navController: NavController, userId: String) {
     val context = LocalContext.current
     val user = getUserData(userId)
-    val optimizedUrl = user?.profileImageUrl?.let {
-        it.replace("http://", "https://")
-            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
-    } ?: ""
+    // Ensure HTTPS and handle null cases
+    val imageUrl = user?.profileImageUrl?.replace("http://", "https://") ?: ""
 
-    val imageRequest = remember(optimizedUrl) {
+    // Debugging
+    Log.d("ImageURL", "Loading image from: $imageUrl")
+
+    // Coil Image Request with Advanced Optimizations
+    val imageRequest = remember(imageUrl) {
         ImageRequest.Builder(context)
-            .data(optimizedUrl)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .crossfade(true)
+            .data(imageUrl)
+            .crossfade(300) // Faster crossfade transition
+            .diskCachePolicy(CachePolicy.ENABLED) // Cache on disk
+            .memoryCachePolicy(CachePolicy.ENABLED) // Cache in memory
+            .networkCachePolicy(CachePolicy.ENABLED) // Enable network cache
+            // .error(R.drawable.error_image) // Show fallback if loading fails
+            .placeholder(R.drawable.placeholder_image) // Preload placeholder
             .build()
     }
     Row(
@@ -220,9 +224,10 @@ fun PostInputSection(navController: NavController, userId: String) {
             .padding(bottom = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Image with Smooth Loading
         AsyncImage(
             model = imageRequest,
-            contentDescription = "com.example.greenplate.market.Product Image",
+            contentDescription = "Product Image",
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(40.dp)

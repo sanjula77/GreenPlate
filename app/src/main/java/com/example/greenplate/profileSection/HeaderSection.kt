@@ -1,5 +1,6 @@
 package com.example.greenplate.profileSection
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -40,18 +41,25 @@ import com.example.greenplate.R
 fun Header(navController: NavController, userId: String) {
     val context = LocalContext.current
 
+    // Fetch user data
     val user = getUserData(userId)
-    val optimizedUrl = user?.profileImageUrl?.let {
-        it.replace("http://", "https://")
-            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
-    } ?: ""
 
-    val imageRequest = remember(optimizedUrl) {
+    // Ensure HTTPS and handle null cases
+    val imageUrl = user?.profileImageUrl?.replace("http://", "https://") ?: ""
+
+    // Debugging
+    Log.d("ImageURL", "Loading image from: $imageUrl")
+
+    // Coil Image Request with Advanced Optimizations
+    val imageRequest = remember(imageUrl) {
         ImageRequest.Builder(context)
-            .data(optimizedUrl)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .crossfade(true)
+            .data(imageUrl)
+            .crossfade(300) // Faster crossfade transition
+            .diskCachePolicy(CachePolicy.ENABLED) // Cache on disk
+            .memoryCachePolicy(CachePolicy.ENABLED) // Cache in memory
+            .networkCachePolicy(CachePolicy.ENABLED) // Enable network cache
+           // .error(R.drawable.error_image) // Show fallback if loading fails
+            .placeholder(R.drawable.placeholder_image) // Preload placeholder
             .build()
     }
 
@@ -92,9 +100,10 @@ fun Header(navController: NavController, userId: String) {
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.fillMaxWidth()
         ) {
+            // Image with Smooth Loading
             AsyncImage(
                 model = imageRequest,
-                contentDescription = "com.example.greenplate.market.Product Image",
+                contentDescription = "Product Image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(90.dp)

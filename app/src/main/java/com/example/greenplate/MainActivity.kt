@@ -25,10 +25,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MyNav()
-                 //   ProductListScreen()
-                   // DisplayDataScreen()
-
-                   // DonationInputScreen()
                 }
             }
         }

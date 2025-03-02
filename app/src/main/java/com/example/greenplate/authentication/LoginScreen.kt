@@ -29,7 +29,9 @@ import androidx.navigation.NavController
 import com.example.greenplate.R
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.*
-
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +41,16 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+
+    // Add a state for error messages
     var loginError by remember { mutableStateOf<String?>(null) }
+
+    // Get the current context from LocalContext
+    val context = LocalContext.current
+    val googleAuthClient = remember { GoogleAuthClient(context) }
+
+    // Create a coroutine scope
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -55,7 +66,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             value = email,
             onValueChange = { email = it },
             placeholder = { Text("Email", color = colorResource(id = R.color.grayLtr)) },
-            leadingIcon = { Icon(imageVector = Icons.Rounded.Email, contentDescription = "Email Icon",  tint = colorResource(id = R.color.grayLtr)) },
+            leadingIcon = { Icon(imageVector = Icons.Rounded.Email, contentDescription = "Email Icon", tint = colorResource(id = R.color.grayLtr)) },
             shape = RoundedCornerShape(12.dp),
             modifier = Modifier.fillMaxWidth(),
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -72,11 +83,11 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             value = password,
             onValueChange = { password = it },
             placeholder = { Text("Password", color = colorResource(id = R.color.grayLtr)) },
-            leadingIcon = { Icon(imageVector = Icons.Rounded.Lock, contentDescription = "Password Icon",  tint = colorResource(id = R.color.grayLtr)) },
+            leadingIcon = { Icon(imageVector = Icons.Rounded.Lock, contentDescription = "Password Icon", tint = colorResource(id = R.color.grayLtr)) },
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility",  tint = colorResource(id = R.color.grayLtr))
+                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility", tint = colorResource(id = R.color.grayLtr))
                 }
             },
             shape = RoundedCornerShape(12.dp),
@@ -104,9 +115,9 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
                 checked = rememberMeChecked,
                 onCheckedChange = { rememberMeChecked = it },
                 colors = CheckboxDefaults.colors(
-                    checkedColor = colorResource(id = R.color.greenBtn2), // Corrected function
-                    uncheckedColor = Color.Gray, // Color when unchecked
-                    checkmarkColor = Color.White // Color of the checkmark
+                    checkedColor = colorResource(id = R.color.greenBtn2),
+                    uncheckedColor = Color.Gray,
+                    checkmarkColor = Color.White
                 )
             )
 
@@ -121,7 +132,7 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             Text(
                 text = "Forgot Password?",
                 color = colorResource(id = R.color.greenBtn2),
-                modifier = Modifier.clickable {  },
+                modifier = Modifier.clickable { },
                 fontWeight = FontWeight.Bold,
                 fontSize = 12.sp
             )
@@ -145,7 +156,6 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             Text(text = "Login", fontWeight = FontWeight.Bold, color = Color.White, fontSize = 16.sp)
         }
 
-
         Spacer(modifier = Modifier.height(16.dp))
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -163,6 +173,17 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
         Spacer(modifier = Modifier.height(12.dp))
 
         SocialButton(
+            onClick = {
+                // Perform Google Sign-In asynchronously
+                coroutineScope.launch {
+                    val signInSuccessful = googleAuthClient.signIn()
+                    if (!signInSuccessful) {
+                        loginError = "Google Sign-In failed"
+                    } else {
+                        navController.navigate("home")
+                    }
+                }
+            },
             text = "Continue with Google",
             iconRes = painterResource(id = R.drawable.google)
         )
@@ -171,8 +192,6 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
             text = "Continue with Facebook",
             iconRes = painterResource(id = R.drawable.facebook)
         )
-
-
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -192,9 +211,9 @@ fun LoginScreen(navController: NavController, authViewModel: AuthViewModel = vie
 }
 
 @Composable
-fun SocialButton(text: String, iconRes: Painter) {
+fun SocialButton(text: String, iconRes: Painter, onClick: () -> Unit = {}) {
     Button(
-        onClick = { },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
         shape = RoundedCornerShape(12.dp),
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),

@@ -55,35 +55,3 @@ fun Logout(navController: NavController) {
         )
     }
 }
-
-
-
-/*
-@Composable
-fun Logout() {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable {  }
-            .padding(horizontal = 16.dp)
-            .padding(bottom = 12.dp)
-    ) {
-        Icon(
-            imageVector = Icons.Default.Logout,
-            contentDescription = "Settings",
-            tint = Color.Red,
-            modifier = Modifier.size(24.dp)
-        )
-
-        Spacer(modifier = Modifier.width(8.dp))
-
-        Text(
-            text = "Log out",
-            color = Color.Red,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
-*/

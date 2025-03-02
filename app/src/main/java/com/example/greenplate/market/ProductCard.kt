@@ -62,23 +62,6 @@ fun ProductCard(product: Product) {
             .build()
     }
 
-  /*  val optimizedUrl = product.imageUrl?.let {
-        it.replace("http://", "https://")
-            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
-    } ?: ""*/
-
-
-
- /*   val imageRequest = remember(optimizedUrl) {
-        ImageRequest.Builder(context)
-            .data(optimizedUrl)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .crossfade(true)
-            .build()
-    }*/
-
-
     Card(
         modifier = Modifier
             .fillMaxWidth()

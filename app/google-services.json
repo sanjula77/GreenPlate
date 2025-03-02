@@ -12,7 +12,20 @@
           "package_name": "com.example.greenplate"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1094964507632-oid77hatrsfn1o06avqai8a3r66rieoi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.greenplate",
+            "certificate_hash": "9a037d877a87fc4e171ced955f2041d2a47c7f3f"
+          }
+        },
+        {
+          "client_id": "1094964507632-4ub7s4b8kk0titu9t56paobhoii9lh8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB3OyallUczoZrBjEEvAH4pxkokTyP8w2E"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094964507632-4ub7s4b8kk0titu9t56paobhoii9lh8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -63,7 +63,7 @@ fun FoodDonationCard(donation: Donation) {
                 contentDescription = "Product Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp)
+                    .height(150.dp)
                     .clip(RoundedCornerShape(12.dp)), // Smooth rounded corners
                 contentScale = ContentScale.Crop
             )
@@ -72,7 +72,8 @@ fun FoodDonationCard(donation: Donation) {
                 Text(
                     text = donation.title,
                     fontSize = 12.sp,
-                    color = Color.Gray
+                    color = Color.Gray,
+                    maxLines = 1
                 )
 
                 Text(

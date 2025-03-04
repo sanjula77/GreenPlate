@@ -1,10 +1,12 @@
 package com.example.greenplate.market
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -41,17 +43,22 @@ fun ProductCard(product: Product) {
 
     val context = LocalContext.current
 
-    val optimizedUrl = product.imageUrl?.let {
-        it.replace("http://", "https://")
-            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
-    } ?: ""
+    // Ensure HTTPS and optimize URL for Cloudinary/Firebase
+    val imageUrl = product.imageUrl?.replace("http://", "https://") ?: ""
 
-    val imageRequest = remember(optimizedUrl) {
+    // Debugging
+    Log.d("ImageURL", "Loading image from: $imageUrl")
+
+    // Coil Image Request with Advanced Optimizations
+    val imageRequest = remember(imageUrl) {
         ImageRequest.Builder(context)
-            .data(optimizedUrl)
-            .diskCachePolicy(CachePolicy.ENABLED)
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .crossfade(true)
+            .data(imageUrl)
+            .crossfade(300) // Faster crossfade transition
+            .diskCachePolicy(CachePolicy.ENABLED) // Cache on disk
+            .memoryCachePolicy(CachePolicy.ENABLED) // Cache in memory
+            .networkCachePolicy(CachePolicy.ENABLED) // Enable network cache
+            .placeholder(R.drawable.placeholder_image) // Preload placeholder
+            .error(R.drawable.error_image) // Show fallback if loading fails
             .build()
     }
 
@@ -64,12 +71,14 @@ fun ProductCard(product: Product) {
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
 
+            // Image with Smooth Loading
             AsyncImage(
                 model = imageRequest,
                 contentDescription = "Product Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp),
+                    .height(220.dp)
+                    .clip(RoundedCornerShape(12.dp)), // Smooth rounded corners
                 contentScale = ContentScale.Crop
             )
 

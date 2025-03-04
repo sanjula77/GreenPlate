@@ -7,14 +7,14 @@ val sampleCourses = listOf(
         title = "HACCP Food Safety System for Restaurants and Other Catering Services",
         duration = "3-4 hrs",
         enrolled = "96,692 enrolled",
-        imageRes = R.drawable.emrgcny, // Your image file from drawable
+        imageRes = R.drawable.dhcp, // Your image file from drawable
        // isCertified = true
     ),
     Course(
         title = "Introduction to Nutrition and Healthy Eating",
         duration = "2-3 hrs",
         enrolled = "78,123 enrolled",
-        imageRes = R.drawable.emrgcny,
+        imageRes = R.drawable.nutration,
       //  isCertified = false
     ),
     Course(

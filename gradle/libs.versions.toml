@@ -25,7 +25,15 @@ serialization = "1.6.3"
 uiVersion = "1.7.8"
 foundationAndroidVersion = "1.7.2"
 
+credentialsPlayServicesAuth = "1.5.0-alpha05"
+googleid = "1.1.1"
+gmsGoogleServices = "4.4.2"
+
 [libraries]
+
+androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "credentialsPlayServicesAuth" }
+androidx-credentials-play-services-auth = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "credentialsPlayServicesAuth" }
+googleid = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
 accompanist-pager-indicators = { module = "com.google.accompanist:accompanist-pager-indicators", version.ref = "googleAccompanistPagerVersion" }
 androidx-material-icons-extended-v150 = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtendedVersion" }
 com-google-accompanist-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "googleAccompanistPagerVersion" }
@@ -64,3 +72,4 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+gms-google-services = { id = "com.google.gms.google-services", version.ref = "gmsGoogleServices" }

@@ -81,18 +81,19 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
         capturedImage = null
     }
 
-    val user = getUserData(userId)
-    val optimizedUrl = user?.profileImageUrl?.let {
-        it.replace("http://", "https://")
-            .replace("/upload/", "/upload/w_200,h_200,c_fill/")
-    } ?: ""
+    // Ensure HTTPS and handle null cases
+    val displayImageUrl = imageUrl?.replace("http://", "https://") ?: ""
 
-    val imageRequest = remember(optimizedUrl) {
+    // Coil Image Request with Advanced Optimizations
+    val imageRequest = remember(displayImageUrl) {
         ImageRequest.Builder(context)
-            .data(optimizedUrl)
+            .data(displayImageUrl)
+            .crossfade(300)
             .diskCachePolicy(CachePolicy.ENABLED)
             .memoryCachePolicy(CachePolicy.ENABLED)
-            .crossfade(true)
+            .networkCachePolicy(CachePolicy.ENABLED)
+            .placeholder(R.drawable.placeholder_image)
+            .error(R.drawable.error_image)
             .build()
     }
 
@@ -137,10 +138,13 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
     }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(55.dp))
+
         // Image Section
         Box(
             modifier = Modifier
@@ -167,10 +171,10 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
                         contentScale = ContentScale.Crop
                     )
                 }
-                imageUrl != null -> {
+                displayImageUrl.isNotEmpty() -> {
                     AsyncImage(
                         model = imageRequest,
-                        contentDescription = "com.example.greenplate.market.Product Image",
+                        contentDescription = "Profile Image",
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(200.dp)
@@ -190,6 +194,7 @@ fun UpdateProfileScreen(navController: NavController, userId: String) {
 
         Spacer(modifier = Modifier.height(75.dp))
 
+        // Name, Email, and Phone number input fields
         OutlinedTextField(
             value = firstName,
             onValueChange = { firstName = it },

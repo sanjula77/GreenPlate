@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     id("com.android.application")
-    id("com.google.gms.google-services")
+   // id("com.google.gms.google-services")
+    alias(libs.plugins.gms.google.services)
 }
 
 android {
@@ -43,6 +44,11 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+
 
     implementation("com.cloudinary:cloudinary-android:2.3.1")
     implementation(libs.ui)

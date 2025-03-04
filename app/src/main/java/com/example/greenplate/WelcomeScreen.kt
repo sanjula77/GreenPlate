@@ -70,7 +70,7 @@ fun WelcomeScreen(navController: NavController) {
 
                 Text(
                     text = "Zero Hunger",
-                    fontFamily = FontFamily(Font(R.font.robotoslabextrabold)),
+                    fontFamily = FontFamily(Font(R.font.poppinsmedium)),
                     fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.Black,

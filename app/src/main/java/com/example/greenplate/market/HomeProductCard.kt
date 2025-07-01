@@ -80,7 +80,7 @@ fun ProductItem(product: Product) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(150.dp)
-                    .clip(RoundedCornerShape(12.dp)), // Smooth rounded corners
+                    .clip(RoundedCornerShape(12.dp)),
                 contentScale = ContentScale.Crop
             )
 

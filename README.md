@@ -1,72 +1,101 @@
-# GreenPlate
+# 🌱 GreenPlate - Sustainable Food & Education Mobile App
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/platform-Android-brightgreen.svg)](https://www.android.com)
+GreenPlate is a mobile application built with **Jetpack Compose** and **Firebase** that bridges the gap between farmers and buyers, promotes food donations, and supports educational content on sustainable farming and nutrition. This project aligns with **United Nations Sustainable Development Goals (SDGs)**:  
+- 🎯 **SDG 2: Zero Hunger**  
+- 🎯 **SDG 4: Quality Education**
 
-GreenPlate is a mobile application designed to promote sustainable eating habits and help users make eco-friendly food choices.
+## 📱 Features
 
-## Screenshots
+### 👥 User Authentication
+- Email/Password & Google Sign-In (Firebase Authentication)
+- Email verification system
+- User profile updates with profile picture upload (via Cloudinary)
 
-*(Add some screenshots of your application here to give users a visual preview.)*
+### 🛒 Marketplace
+- Farmers can add, update, and delete product listings
+- Buyers can browse available fresh produce
+- Efficient image rendering using Coil with advanced caching and Cloudinary optimization
 
-| Meal Tracker | Recipe Discovery |
-| :---: | :---: |
-| *Screenshot 1* | *Screenshot 2* |
+### 🍱 Food Donation
+- Users can donate food for hunger relief
+- Real-time CRUD with Firestore
 
-## Features
+### 📚 Educational Platform
+- Interactive learning modules on food safety, nutrition, and sustainable farming
+- Examples: 
+  - *HACCP Food Safety for Restaurants*
+  - *Introduction to Nutrition and Healthy Eating*
+  - *Sustainable Agriculture 101*
 
-*   **🍽️ Meal Tracker:** Log your daily meals to keep track of your eating habits.
-*   **🥗 Recipe Discovery:** Discover a wide range of sustainable and delicious recipes.
-*   **💡 Eco-Tips:** Get personalized tips and recommendations for reducing food waste.
-*   **🌍 Google Integration:** Seamlessly sign in and sync your data with your Google account.
+### 📸 Optimized Media
+- Image uploads via **Cloudinary**
+- Smooth and optimized image loading using **Coil**, with:
+  - HTTPS conversion
+  - Image resizing via Cloudinary transformations
+  - Memory/disk/network caching
 
-## Tech Stack
+### 📖 Swipeable Cards UI
+- Informational carousel using Accompanist HorizontalPager
+- Highlights emergency aid, nutrition programs, and food education
 
-*   **[Kotlin](https://kotlinlang.org/):** The primary programming language for Android development.
-*   **[Jetpack Compose](https://developer.android.com/jetpack/compose):** Android’s modern toolkit for building native UI.
-*   **[Firebase](https://firebase.google.com/):** Used for authentication, database, and other backend services.
-*   **[Gradle](https://gradle.org/):** The build automation tool for the project.
+---
 
-## Installation
+## 🛠️ Tech Stack
 
-To get a local copy up and running, follow these simple steps.
+| Tech           | Description                                     |
+|----------------|-------------------------------------------------|
+| 💚 Jetpack Compose | Declarative UI Framework for Android            |
+| 🔥 Firebase         | Auth, Firestore NoSQL DB, Real-time Sync       |
+| ☁️ Cloudinary      | Image hosting and transformation               |
+| 🌀 Coil             | Fast and efficient image loading               |
+| 🎨 Accompanist     | Jetpack Compose Pager for swipeable cards      |
+| 🔧 Kotlin           | Primary programming language                   |
 
-### Prerequisites
+---
 
-*   [Android Studio](https://developer.android.com/studio) (latest version recommended)
-*   Android SDK (API level 21 or higher)
+## 📦 Project Structure (Main Packages)
 
-### Setup
+📁 greenplate/
+├── auth/ # Login, Register, Verify Email
+├── homeScreen/ # Dashboard, Marketplace, Swiper UI
+├── profileSection/ # Profile view & update logic
+├── education/ # Education modules (CRUD)
+├── donation/ # Food donation logic
 
-1.  **Clone the repository:**
-    ```sh
-    git clone https://github.com/your_username/GreenPlate.git
-    ```
-2.  **Open in Android Studio:**
-    Open the cloned project in Android Studio.
-3.  **Google Services:**
-    You'll need to set up a Firebase project and add your own `google-services.json` file to the `app/` directory. Follow the instructions [here](https://support.google.com/firebase/answer/7015592) to get your configuration file.
-4.  **Build and Run:**
-    Build and run the app on your Android device or emulator.
+---
 
-## Usage
+## 🚀 How to Run
 
-1.  Launch the app on your Android device.
-2.  Sign in with your Google account.
-3.  Start exploring recipes, tracking your meals, and discovering tips for a more sustainable lifestyle.
+1. Clone the repo  
+   ```bash
+   git clone https://github.com/sanjula77/greenplate.git
 
-## Contributing
+   Open with Android Studio
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Add your google-services.json (Firebase project)
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Set up Cloudinary credentials in the uploadToCloudinary() method
 
-1.  Fork the Project
-2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4.  Push to the Branch (`git push origin feature/AmazingFeature`)
-5.  Open a Pull Request
+Run on Emulator or Physical Device (API 24+)
 
-## License
+| Home Page             | Marketplace             | Education            | Profile                  |
+| --------------------- | ----------------------- | -------------------- | ------------------------ |
+| ![](screens/home.png) | ![](screens/market.png) | ![](screens/edu.png) | ![](screens/profile.png) |
 
-Distributed under the MIT License. See `LICENSE` for more information.
+🎓 Developed By
+👨‍💻 Gihan Sanjula
+Final Year Undergraduate
+Horizon Campus
+Dept. of IT
+🔗 LinkedIn
+🔗 GitHub
+
+📜 License
+This project is for academic and educational purposes.
+Feel free to fork and contribute with credits. 🔄
+
+
+---
+
+Would you like this as a downloadable file or added to your GitHub repository? I can also help you generate a project banner to include in this README.
+
